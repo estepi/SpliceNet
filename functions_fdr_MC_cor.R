@@ -156,7 +156,7 @@ plots <- function(start,
   plot(eje1,
        (randomEdges / trueEdges) * 100,
        main = "Ratio edges in random data vs real data",
-       type = "l")
+       type = "l", main=name)
   abline(h = c(0, 5, 10))
   dev.off()
   message("Plot 2: Ratio edges in random data vs real data")
