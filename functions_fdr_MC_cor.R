@@ -45,9 +45,23 @@ print(length( E(g) ))
 print(dim(links))
 print(head(links))
 return(nrow(links))
-
 }
+
+getCorM <- function(C, rho, fdr)
+{
+  
+  df <-    rcorr(C)
+  cor_r <- df$r
+  cor_p <- df$P
+  my_cor_matrix <- flat_cor_mat(cor_r, cor_p)
+  my_cor_matrixClean <-
+    my_cor_matrix[my_cor_matrix$row != my_cor_matrix$column,]
+  my_cor_matrixClean$fdr <- p.adjust(my_cor_matrixClean$p, method = "fdr")
+  return(my_cor_matrixClean)
+}
+
 ######################################################################
+
 #agregar from to como parametros
 getEdgesByRHO <- function(RList, start, end, interval, ncores, fdr)
 {
