@@ -41,12 +41,11 @@ getEdges <- function(C, rho, fdr)
   my_cor_matrixClean$fdr <- p.adjust(my_cor_matrixClean$p, method = "fdr")
   links <- my_cor_matrixClean[my_cor_matrixClean$cor > rho &
                              my_cor_matrixClean$fdr < fdr, ]
-  g <- graph_from_data_frame(links[,1:2], directed = FALSE)
 print(length( E(g) ))
 print(dim(links))
 print(head(links))
+return(nrow(links))
 
- return(length(E(g)))
 }
 ######################################################################
 #agregar from to como parametros

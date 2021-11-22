@@ -1,15 +1,11 @@
 #first generate data: TRUE and RANDOM DATA
-
 library(optparse)# yes
 library(parallel)
 library(Hmisc)
 library(tibble)
 library(tidyr)
-library(igraph)
 library(utils)
 library(dplyr)
-
-
 ##############################################################
 option_list = list(
   make_option(c("-f", "--file"), type="character", default=NULL, 
