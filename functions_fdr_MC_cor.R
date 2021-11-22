@@ -16,7 +16,7 @@ createRandomMatrix <- function(TrueM, NumRandomM)
     MList <- vector("list", NumRandomM)
     for (i in 1:NumRandomM) {
 #    MList[[i]] <- t(apply(TrueM, 1, sample, replace=TRUE))
-    MList[[i]] <- t(apply(TrueM, 1, sample, replace=FALSE))
+     MList[[i]] <- t(apply(TrueM, 1, sample, replace=FALSE))
      colnames(MList[[i]])<-colnames(TrueM)
 
     }
@@ -41,23 +41,38 @@ getEdges <- function(C, rho, fdr)
   my_cor_matrixClean$fdr <- p.adjust(my_cor_matrixClean$p, method = "fdr")
   links <- my_cor_matrixClean[my_cor_matrixClean$cor > rho &
                              my_cor_matrixClean$fdr < fdr, ]
-print(length( E(g) ))
-print(dim(links))
-print(head(links))
-return(nrow(links))
+  print(length( E(g) ))
+  print(dim(links))
+  print(head(links))
+  return(nrow(links))
 }
 
 getCorM <- function(C, rho, fdr)
 {
   
-  df <-    rcorr(C)
+  df <-    rcorr(Ms)
   cor_r <- df$r
   cor_p <- df$P
-  my_cor_matrix <- flat_cor_mat(cor_r, cor_p)
-  my_cor_matrixClean <-
-    my_cor_matrix[my_cor_matrix$row != my_cor_matrix$column,]
-  my_cor_matrixClean$fdr <- p.adjust(my_cor_matrixClean$p, method = "fdr")
-  return(my_cor_matrixClean)
+  
+  df2 <- flat_cor_mat(cor_r, cor_p)
+  colnames(df2)[1:2]<-c("so","tg")
+  
+  df2Clean <-
+    df2[df2$so != df2$tg,]
+    df2Clean$absCor<-abs( df2Clean$cor)  
+    df2Clean$fdr <- p.adjust(df2Clean$p, method = "fdr")
+  
+  #order links alphabetically and put rownames:
+  edgeListLCSort<-data.frame(t(unlist(apply(df2Clean[,1:2],
+                                            1, function(x){sort(x)}))))
+  final<-data.frame(df2Clean,"source"=  edgeListLCSort$X1, 
+                    "target" =edgeListLCSort$X2,
+                    link=paste(edgeListLCSort$X1,
+                               edgeListLCSort$X2, sep="-")
+                    )
+  
+
+  return(final)
 }
 
 ######################################################################
@@ -219,8 +234,8 @@ plots( start,  end, interval,
         randomEdges=randomEdges+0.01,
         name)#all together
 ##################################################
-
 }
+
 
 
   

@@ -2,41 +2,12 @@ library(optparse)
 library(utils)
 library(igraph)
 library(scales)
-source("functions_fdr_noMC_cor.R")
-##############################################################################
-NetworkDesc<-function(g, name, Cdouble)
-  {
-df2<-data.frame(get.edgelist(g))
-Cdouble<-as.data.frame(Cdouble)
-
-print(paste("NumOfV:",length(V(g))), sep=":")
-print(paste("NumOfE:",length(E(g))), sep=":")
-
-edgeListLCSort<-data.frame(t(unlist(apply(df2,1, function(x){sort(x)}))))
-head(edgeListLCSort)
-
-final<-data.frame("source"=  edgeListLCSort$X1, 
-                  "target" =edgeListLCSort$X2)
-cor<-c()
-
-for (i in 1:nrow(final)) {
-
-ss<-as.character(final$source[i])
-print(ss)
-tt<-as.character(final$target[i])
-print(tt)
-cor[i]<-  Cdouble[ss,tt]
-print(cor[i])
-}
-
-final$cor<-cor
-final$abscor<-abs(cor)
-file5<-paste(name, "edgelist.tab", sep="_")
-write.table(final, file5, col.names = NA, quote = F, sep="\t")
-
-
-}
-
+library(Hmisc)
+library(tibble)
+library(tidyr)
+library(utils)
+library(dplyr)
+source("functions_fdr_MC_cor.R")
 #####################################################################
 option_list = list(
    make_option(c("-f", "--file"), type="character", default=NULL, 
@@ -58,18 +29,15 @@ if (is.null(opt$file)){
 
 #####################################################################
 print(opt$file)
+opt$name<-"test"
 name<-opt$name
 print(paste("name:",name))
-
 minCor<-opt$min
 print(paste("Min cor:",minCor))
 fdr<-opt$fdr
 
 M<-read.table(opt$file, sep="\t", header=T); 
-print(paste("dim M:",dim(M)))
+corM <- getCorM(Ms, minCor, fdr)
+write.table(corM, file=paste(name, "edgelist.tab" , sep="_"))
 
-MCor <- CRobCor(M)
-g<-graph_from_data_frame(MCor[,1:2])
-NetworkDesc(g, name,	MCor)
-
-
+getwd()
