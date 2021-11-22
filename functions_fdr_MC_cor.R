@@ -29,28 +29,9 @@ createRandomMatrix <- function(TrueM, NumRandomM)
   
 }
 ####################################################################
-getEdges <- function(C, rho, fdr)
+getEdges <- function(M, min, fdr)
 {
-  
-  df <-    rcorr(C)
-  cor_r <- df$r
-  cor_p <- df$P
-  my_cor_matrix <- flat_cor_mat(cor_r, cor_p)
-  my_cor_matrixClean <-
-  my_cor_matrix[my_cor_matrix$row != my_cor_matrix$column,]
-  my_cor_matrixClean$fdr <- p.adjust(my_cor_matrixClean$p, method = "fdr")
-  links <- my_cor_matrixClean[my_cor_matrixClean$cor > rho &
-                             my_cor_matrixClean$fdr < fdr, ]
-  print(length( E(g) ))
-  print(dim(links))
-  print(head(links))
-  return(nrow(links))
-}
-
-getCorM <- function(C, rho, fdr)
-{
-  
-  df <-    rcorr(Ms)
+  df <-    rcorr(M)
   cor_r <- df$r
   cor_p <- df$P
   
@@ -58,25 +39,51 @@ getCorM <- function(C, rho, fdr)
   colnames(df2)[1:2]<-c("so","tg")
   
   df2Clean <-
-    df2[df2$so != df2$tg,]
-    df2Clean$absCor<-abs( df2Clean$cor)  
-    df2Clean$fdr <- p.adjust(df2Clean$p, method = "fdr")
+  df2[df2$so != df2$tg,]
+  df2Clean$absCor<-abs( df2Clean$cor)  
+  df2Clean$fdr <- p.adjust(df2Clean$p, method = "fdr")
+  
+  links <- df2Clean[df2Clean$absCor > min &
+                      df2Clean$fdr < fdr,]
+  print(length(E(g)))
+  print(dim(links))
+  print(head(links))
+  return(nrow(links))
+}
+########################################################
+getCorM <- function(M, min, fdr)
+{
+  df <-    rcorr(M)
+  cor_r <- df$r
+  cor_p <- df$P
+  
+  df2 <- flat_cor_mat(cor_r, cor_p)
+  colnames(df2)[1:2]<-c("so","tg")
+  
+  
+  df2Clean <-
+  df2[df2$so != df2$tg,]
+  df2Clean$absCor<-abs( df2Clean$cor)  
+  df2Clean$fdr <- p.adjust(df2Clean$p, method = "fdr")
+  
+  df2Clean$fdr <- p.adjust(df2Clean$p, method = "fdr")
+  
+  #filter here
+  links <- df2Clean[df2Clean$absCor > min &
+                      df2Clean$fdr < fdr,]
   
   #order links alphabetically and put rownames:
-  edgeListLCSort<-data.frame(t(unlist(apply(df2Clean[,1:2],
-                                            1, function(x){sort(x)}))))
-  final<-data.frame(df2Clean,"source"=  edgeListLCSort$X1, 
+  edgeListLCSort<-data.frame(t(unlist(apply(links[,1:2],
+                                        1, function(x){sort(x)}))))
+  final<-data.frame(links,"source"=  edgeListLCSort$X1, 
                     "target" =edgeListLCSort$X2,
                     link=paste(edgeListLCSort$X1,
                                edgeListLCSort$X2, sep="-")
                     )
   
-
   return(final)
 }
-
 ######################################################################
-
 #agregar from to como parametros
 getEdgesByRHO <- function(RList, start, end, interval, ncores, fdr)
 {
