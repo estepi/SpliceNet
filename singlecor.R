@@ -7,7 +7,6 @@ library(tibble)
 library(tidyr)
 library(utils)
 library(dplyr)
-source("functions_fdr_MC_cor.R")
 #####################################################################
 option_list = list(
   make_option(
@@ -37,7 +36,15 @@ option_list = list(
     type = "character",
     default = "test",
     help = "file name"
-    )
+    ),
+  make_option(
+    c("-b", "--bin"),
+    type = "character",
+    default = getwd(),
+    help = "abs path folder of scripts [default= %default]",
+    metavar = "character"
+  )
+  
 )
 
 
@@ -63,3 +70,7 @@ M <- as.matrix(sampleData)
 corM <- getCorM(M, minCor, fdr)
 write.table(corM, file=paste(name, "edgelist.tab" , sep="_"))
 
+scripts<-opt$bin
+sc3<-paste(scripts, "functions_fdr_MC_cor.R", sep="/")
+#esta funcion se carga de sc3
+source(sc3)
