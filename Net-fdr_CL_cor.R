@@ -86,10 +86,11 @@ fdr<-0.01
 print(c(start,end, interval, NumRandomM))
 scripts<-opt$bin
 sc3<-paste(scripts, "functions_fdr_MC_cor.R", sep="/")
+
 #esta funcion se carga de sc3
 source(sc3)
 
 estimateFDR(  inputM=sampleData,  
-              NumRandomM,  start,  end,  interval, ncores, name, fdr)
+              NumRandomM,   start,  end,   interval,  ncores,  name, fdr)
 
 
