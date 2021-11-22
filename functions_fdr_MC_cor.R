@@ -15,7 +15,6 @@ createRandomMatrix <- function(TrueM, NumRandomM)
   {
     MList <- vector("list", NumRandomM)
     for (i in 1:NumRandomM) {
-#    MList[[i]] <- t(apply(TrueM, 1, sample, replace=TRUE))
      MList[[i]] <- t(apply(TrueM, 1, sample, replace=FALSE))
      colnames(MList[[i]])<-colnames(TrueM)
 
@@ -38,15 +37,12 @@ getEdges <- function(M, min, fdr)
   df2 <- flat_cor_mat(cor_r, cor_p)
   colnames(df2)[1:2]<-c("so","tg")
   
-  df2Clean <-
-  df2[df2$so != df2$tg,]
+  df2Clean <-   df2[df2$so != df2$tg,]
   df2Clean$absCor<-abs( df2Clean$cor)  
   df2Clean$fdr <- p.adjust(df2Clean$p, method = "fdr")
   
   links <- df2Clean[df2Clean$absCor > min &
                       df2Clean$fdr < fdr,]
-  print(length(E(g)))
-  print(dim(links))
   print(head(links))
   return(nrow(links))
 }
