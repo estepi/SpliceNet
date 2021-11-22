@@ -15,7 +15,7 @@ createRandomMatrix <- function(TrueM, NumRandomM)
   {
     MList <- vector("list", NumRandomM)
     for (i in 1:NumRandomM) {
-     MList[[i]] <- t(apply(TrueM, 1, sample, replace=FALSE))
+    MList[[i]] <- t(apply(TrueM, 1, sample, replace=FALSE))
      colnames(MList[[i]])<-colnames(TrueM)
 
     }
@@ -140,15 +140,15 @@ plots <- function(start,
   name <- name
   ###########################################################################################
   file1 <- paste(paste(paste(
-    "NumberOfEdges_", paste(start, end, sep = "-"), sep = ""
-  )
-  , name, sep = "_"),
+  "NumberOfEdges_", paste(start, end, sep = "-"), sep = ""
+  )  , name, sep = "_"),
   ".png", sep = "")
+  
   png(file1)
   plot(
     eje1,
     trueEdges,
-    main = "Number of edges real / random data vs rho" ,
+    main = paste(name,"Number of edges real / random data vs rho" ,sep=":"),
     type = "l",
     xlab = "rho",
     ylab = "Number of edges",
@@ -190,10 +190,13 @@ plots <- function(start,
   name, sep = "_"),
   ".png", sep = "")
   png(file2)
-  plot(eje1,
-       (randomEdges / trueEdges) * 100,
-       main = "Ratio edges in random data vs real data",
-       type = "l", main=name)
+  plot(
+    eje1,
+    (randomEdges / trueEdges) * 100,
+    main = paste(name, "Ratio edges in random data vs real data", sep =
+                   ":"),
+    type = "l"
+  )
   abline(h = c(0, 5, 10))
   dev.off()
   message("Plot 2: Ratio edges in random data vs real data")
