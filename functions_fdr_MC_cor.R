@@ -17,6 +17,8 @@ createRandomMatrix <- function(TrueM, NumRandomM)
     for (i in 1:NumRandomM) {
 #    MList[[i]] <- t(apply(TrueM, 1, sample, replace=TRUE))
     MList[[i]] <- t(apply(TrueM, 1, sample, replace=FALSE))
+     colnames(MList[[i]])<-colnames(TrueM)
+
     }
     
       return(MList)  }
@@ -40,7 +42,11 @@ getEdges <- function(C, rho, fdr)
   links <- my_cor_matrixClean[my_cor_matrixClean$cor > rho &
                              my_cor_matrixClean$fdr < fdr, ]
   g <- graph_from_data_frame(links[,1:2], directed = FALSE)
-  return(length(E(g)))
+print(length( E(g) ))
+print(dim(links))
+print(head(links))
+
+ return(length(E(g)))
 }
 ######################################################################
 #agregar from to como parametros
