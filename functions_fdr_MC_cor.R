@@ -33,26 +33,26 @@ getEdges <- function(M, min, fdr)
   df <-    rcorr(M)
   cor_r <- df$r
   cor_p <- df$P
-  
+  summary(cor_p)
   df2 <- flat_cor_mat(cor_r, cor_p)
   colnames(df2)[1:2]<-c("so","tg")
+  head(df2)
   df2Clean <-   df2[df2$so != df2$tg,]
   df2Clean$absCor<-abs( df2Clean$cor)  
+  df2Clean$p
   df2Clean$fdr <- p.adjust(df2Clean$p, method = "fdr")
-  head(df2Clean)
-  min=0.4
-  fdr=1
+  head(df2Clean$fdr)
+  
   links <- df2Clean[df2Clean$absCor > min &
                       df2Clean$fdr < fdr,]
   
   edgeListLCSort<-data.frame(t(unlist(apply(links[,1:2],
                                             1, function(x){sort(x)}))))
-  
+  head(edgeListLCSort)
   final<-data.frame(links,"source"=  edgeListLCSort$X1, 
                     "target" =edgeListLCSort$X2,
-                    link=paste(edgeListLCSort$X1,
+                     link=paste(edgeListLCSort$X1,
                                edgeListLCSort$X2, sep="-"))
-  
   finalUnique<-final[!duplicated(final$link),]
   print(head(finalUnique))
   return(nrow(finalUnique))
@@ -227,7 +227,7 @@ estimateFDR<-function(
   interval=0.05,
   ncores=1,
   name,
-  fdr=0.05)
+  fdr)
 {
   TrueList<-vector("list",1)
   TrueList[[1]]<-sampleData

@@ -68,6 +68,10 @@ sc3<-paste(scripts, "functions_fdr_MC_cor.R", sep="/")
 #esta funcion se carga de sc3
 source(sc3)
 sampleData<-read.table(opt$file, sep="\t", header=T) 
+
+source( "functions_fdr_MC_cor.R")
+sampleData<-read.table(file = "~/Dropbox (CRG ADV)/Personal_Estefania/Network/standard/diffRho/A3_all_dscaled.tab") 
+
 M <- as.matrix(sampleData)
 
 corM <- getCorM(M, min=0.4, fdr=1)
