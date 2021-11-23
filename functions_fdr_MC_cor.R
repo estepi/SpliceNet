@@ -36,22 +36,38 @@ getEdges <- function(M, min, fdr)
   
   df2 <- flat_cor_mat(cor_r, cor_p)
   colnames(df2)[1:2]<-c("so","tg")
-  
   df2Clean <-   df2[df2$so != df2$tg,]
   df2Clean$absCor<-abs( df2Clean$cor)  
   df2Clean$fdr <- p.adjust(df2Clean$p, method = "fdr")
-  
+  head(df2Clean)
+  min=0.4
+  fdr=1
   links <- df2Clean[df2Clean$absCor > min &
                       df2Clean$fdr < fdr,]
-  print(head(links))
-  return(nrow(links))
+  
+  edgeListLCSort<-data.frame(t(unlist(apply(links[,1:2],
+                                            1, function(x){sort(x)}))))
+  
+  final<-data.frame(links,"source"=  edgeListLCSort$X1, 
+                    "target" =edgeListLCSort$X2,
+                    link=paste(edgeListLCSort$X1,
+                               edgeListLCSort$X2, sep="-"))
+  
+  finalUnique<-final[!duplicated(final$link),]
+  print(head(finalUnique))
+  return(nrow(finalUnique))
 }
 ########################################################
 getCorM <- function(M, min, fdr)
 {
   df <-    rcorr(M)
+  head(df)
+  
   cor_r <- df$r
+  head(cor_r)
+  
   cor_p <- df$P
+  head(cor_p)
   
   df2 <- flat_cor_mat(cor_r, cor_p)
   colnames(df2)[1:2]<-c("so","tg")
@@ -62,8 +78,6 @@ getCorM <- function(M, min, fdr)
   df2Clean$absCor<-abs( df2Clean$cor)  
   df2Clean$fdr <- p.adjust(df2Clean$p, method = "fdr")
   
-  df2Clean$fdr <- p.adjust(df2Clean$p, method = "fdr")
-  
   #filter here
   links <- df2Clean[df2Clean$absCor > min &
                       df2Clean$fdr < fdr,]
@@ -71,13 +85,16 @@ getCorM <- function(M, min, fdr)
   #order links alphabetically and put rownames:
   edgeListLCSort<-data.frame(t(unlist(apply(links[,1:2],
                                         1, function(x){sort(x)}))))
+  
   final<-data.frame(links,"source"=  edgeListLCSort$X1, 
                     "target" =edgeListLCSort$X2,
                     link=paste(edgeListLCSort$X1,
-                               edgeListLCSort$X2, sep="-")
-                    )
+                               edgeListLCSort$X2, sep="-"))
+  #remove duplicates
+  finalUnique<-final[!duplicated(final$link),]
+  print(head(finalUnique))
+  return(finalUnique)
   
-  return(final)
 }
 ######################################################################
 #agregar from to como parametros
