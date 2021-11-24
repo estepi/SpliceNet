@@ -113,3 +113,57 @@ ggplot(data = filter) +
   theme(legend.position = "none")
 dev.off()
 
+#####################################################
+ik<-  grep("IK", filter$link)
+linksPlot<-filter[unique(ik),]    
+
+pdf("SummaryCor_noLegend_IK.pdf",
+    width = 2,
+    height = 2)
+ggplot(data = linksPlot) +
+  geom_tile(aes(
+    x = network,
+    y = reorder(link, order),
+    fill = "red",
+    alpha = value
+  )) +
+  theme_classic() +
+  scale_fill_manual(values = "red") + 
+  scale_alpha_identity() +
+  theme(axis.text.x = element_text(
+    angle = 90,
+    #hjust = 400,
+    size = 10
+  )) +
+  scale_x_discrete(position = "top") +
+  theme(axis.text.y = element_text(size = 5)) +
+  theme(legend.position = "none")
+dev.off()
+####################################################
+BRR2<-grep("SNRNP200", filter$link)
+linksPlot<-filter[unique(BRR2),]    
+dim(linksPlot)
+
+pdf("SummaryCor_noLegend_BRR2.pdf",
+    width = 2,
+    height = 4)
+ggplot(data = linksPlot) +
+  geom_tile(aes(
+    x = network,
+    y = reorder(link, order),
+    fill = "red",
+    alpha = value
+  )) +
+  theme_classic() +
+  scale_fill_manual(values = "red") + 
+  scale_alpha_identity() +
+  theme(axis.text.x = element_text(
+    angle = 90,
+    #hjust = 400,
+    size = 10
+  )) +
+  scale_x_discrete(position = "top") +
+  theme(axis.text.y = element_text(size = 5)) +
+  theme(legend.position = "none")
+dev.off()
+
