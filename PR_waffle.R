@@ -105,71 +105,9 @@ ggplot(data = filter) +
   theme(legend.position = "none")
 dev.off()
 
-pdf("SummaryPR.pdf", width = 6, height = 12)
-ggplot(data = filter) +
-  geom_tile(aes(
-    x = network,
-    y = reorder(gene, order),
-    fill = class,
-    alpha = value
-  )) +
-  theme_classic() +
-  scale_fill_manual(values = color) + #assign tissues colors
-  scale_alpha_identity() +
-  theme(axis.text.x = element_text(
-    angle = 90,
-    hjust = 1,
-    size = 10
-  )) +
-  theme(axis.text.y = element_text(size = 5))
-dev.off()
-######################################################
-#presence ausence
-#replace 0 and 1s:    
-forPlotMeltPA<-filter
-forPlotMeltPA$value[forPlotMeltPA$value>0]<-1
-forPlotMeltPA$value[forPlotMeltPA$value==0]<-0
-                      
-
-pdf("SummaryPA_noLegend.pdf",
-    width = 2,
-    height = 12)
-ggplot(data = forPlotMeltPA) +
-  geom_tile(aes(
-    x = network,
-    y = reorder(gene, order),
-    fill = class,
-    alpha = value
-  )) +
-  theme_classic() +
-  scale_fill_manual(values = color) + #assign tissues colors
-  scale_alpha_identity() +
-  theme(axis.text.x = element_text(
-    angle = 90,
-    hjust = 1,
-    size = 10
-  )) +
-  theme(axis.text.y = element_text(size = 5)) +
-  theme(legend.position = "none")
-dev.off()
-
-
-pdf("SummaryPA.pdf", width = 6, height = 12)
-  ggplot(data = forPlotMeltPA) +
-    geom_tile(aes(
-      x = network,
-      y = reorder(gene, order),
-      fill = class,
-      alpha = value
-    )) +
-    theme_classic() +
-    scale_fill_manual(values = color) + #assign tissues colors
-    scale_alpha_identity() +
-    theme(axis.text.x = element_text(
-      angle = 90,
-      hjust = 1,
-      size = 10
-    )) +
-    theme(axis.text.y = element_text(size = 10))
-  dev.off()
- 
+#################################################
+ik<-  grep("IK", rownames(allLinksDF))
+linksPlot<-allLinksDF[unique(ex1),]    
+linksPlot
+linksPlot$occur<-NULL
+head(linksPlot)
