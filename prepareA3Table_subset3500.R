@@ -59,16 +59,20 @@ colnames(dPSI)
 dim(dPSI)
 colnames(dPSI)
 ##########################################
+#subset to 34500
+?sample
+subset<-dPSI[sample(1:nrow(dPSI), 3500,replace = FALSE),]
+##########################################
 #single scaled
-deltascaled <- scale(dPSI)# scaled by columns (KDs)
+deltascaled <- scale(subset)# scaled by columns (KDs)
 #double scaled
 dsscaled <- t(scale(t(deltascaled)))    #scaled by events
 ####################################################
-setwd("~/Dropbox (CRG ADV)/Personal_Estefania/Network/standard/diffRho/")
+setwd("~/Dropbox (CRG ADV)/Personal_Estefania/Network/standard/diffRho/subset3500/")
 #single scaled
-write.table(deltascaled, "A3_all_sscaled.tab",  sep = "\t")
+write.table(deltascaled, "A3_subset3500_sscaled.tab",  sep = "\t")
 dim(deltascaled)
 deltascaled[1:5,300:305]
 #double scaled
-write.table(dsscaled, "A3_all_dscaled.tab",  sep = "\t")
+write.table(dsscaled, "A3_subset3500_dscaled.tab",  sep = "\t")
 ####################################################
