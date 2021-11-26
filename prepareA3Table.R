@@ -10,19 +10,6 @@ dim(dPSI_full_alt3)
 
 dPSI_full_alt3[grep("1/1", rownames(dPSI_full_alt3)),]
 mEv<-matrix(unlist(strsplit(rownames(dPSI_full_alt3), "-")), ncol=2, byrow = T)
-head(mEv)
-tt<-table(mEv[,1])
-tt[tt>1]
-hist(tt)
-names(tt)[1]
-
-mEv[duplicated(mEv[,1]),]
-mEv["HsaALTA1005410",]
-
-table(matrix(unlist(strsplit(rownames(dPSI_full_alt3), "-")), ncol=2, byrow = T)[,1])
-
-summary(dPSI_full_alt3$LENGTH)
-head(dPSI_full_alt3[,1:10])
 
 MIN <- rowMins(as.matrix(dPSI_full_alt3[, 18:322]))
 MAX <- rowMaxs(as.matrix(dPSI_full_alt3[, 18:322]))
@@ -47,17 +34,6 @@ colnames(dPSI_full_chaging)[colnames(dPSI_full_chaging) == "CDC5L_b"] <-
   "CDC5L"
 dim(dPSI_full_chaging)
 
-mEv<-matrix(unlist(strsplit(rownames(dPSI_full_chaging), "-")), ncol=2, byrow = T)
-head(mEv)
-tt<-table(mEv[,1])
-tt[tt>1]
-hist(tt)
-names(tt)[1]
-ii<-grep("HsaALTA1038016", rownames(dPSI_full_chaging))
-
-dPSI_full_chaging[ii, 1:10]
-
-colnames(dPSI_full_chaging)
 #original table is names according to Gene.Symbol
 class <-
   read.delim(
@@ -70,7 +46,6 @@ dPSI <- dPSI_full_chaging
 ############################################
 colnames(dPSI)
 summary(dPSI$LENGTH)
-
 ############################################s
 dPSI <- dPSI[, 18:ncol(dPSI)]
 dPSI$RANGE <- NULL
@@ -81,19 +56,19 @@ iis <- match(colnames(dPSI), class$Gene.Symbol)
 iis[is.na(iis)]
 colnames(dPSI) <- class$gene.name.VT[iis]
 colnames(dPSI)
-
 dim(dPSI)
 colnames(dPSI)
 ##########################################
-deltascaled <- scale(dPSI)# scaled by columns (KDs)
-dsscaled <- t(scale(t(deltascaled)))    #scaled by events
-#double scaled
 #single scaled
+deltascaled <- scale(dPSI)# scaled by columns (KDs)
+#double scaled
+dsscaled <- t(scale(t(deltascaled)))    #scaled by events
 ####################################################
 setwd("~/Dropbox (CRG ADV)/Personal_Estefania/Network/standard/diffRho/")
-write.table(dsscaled, "A3_all_dscaled.tab",  sep = "\t")
+#single scaled
 write.table(deltascaled, "A3_all_sscaled.tab",  sep = "\t")
+dim(deltascaled)
+deltascaled[1:5,300:305]
+#double scaled
+write.table(dsscaled, "A3_all_dscaled.tab",  sep = "\t")
 ####################################################
-
-####################################################
-
