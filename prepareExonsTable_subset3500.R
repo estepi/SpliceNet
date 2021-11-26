@@ -4,23 +4,20 @@ dPSI_full = read.delim("~/Dropbox (CRG)/LAB_VALCARCEL/Network/tables/dPSI_full_N
                        dec = ",")
 dim(dPSI_full)
 
-table(dPSI_full$COMPLEX)
-dPSI_full_alt3 = dPSI_full[dPSI_full$COMPLEX %in% "Alt3", ]
-dim(dPSI_full_alt3)
-
-dPSI_full_alt3[grep("1/1", rownames(dPSI_full_alt3)),]
-mEv<-matrix(unlist(strsplit(rownames(dPSI_full_alt3), "-")), ncol=2, byrow = T)
-
-MIN <- rowMins(as.matrix(dPSI_full_alt3[, 18:322]))
-MAX <- rowMaxs(as.matrix(dPSI_full_alt3[, 18:322]))
+dPSI_full_exons = dPSI_full[dPSI_full$COMPLEX %in% c("S", "C1", "C2", "C3", "ANN", "MIC"), ]
+dim(dPSI_full_exons)
+MIN <- rowMins(as.matrix(dPSI_full_exons[, 18:322]))
+MAX <- rowMaxs(as.matrix(dPSI_full_exons[, 18:322]))
 RANGE = MAX - MIN
-Sds <- rowSds(as.matrix(dPSI_full_alt3[, 18:322]))
-dPSI_full_alt3 = cbind(dPSI_full_alt3, RANGE = RANGE)
-dPSI_full_alt3 = cbind(dPSI_full_alt3, Sds = Sds)
+Sds <- rowSds(as.matrix(dPSI_full_exons[, 18:322]))
+dPSI_full_exons = cbind(dPSI_full_exons, RANGE = RANGE)
+dPSI_full_exons = cbind(dPSI_full_exons, Sds = Sds)
 ###### remove non changing rows I try different cut offs bigger then 0,5,10,15….
-dPSI_full_chaging = dPSI_full_alt3[dPSI_full_alt3$RANGE > 5, ]
-dim(dPSI_full_chaging) #6093 rows
+dPSI_full_chaging = dPSI_full_exons[dPSI_full_exons$RANGE > 5, ]
+dim(dPSI_full_chaging) #16721 rows
 table(dPSI_full_chaging$COMPLEX)
+#ANN    C1    C2    C3   MIC     S 
+#1088  1513  1359  1772    72 10917 
 
 colnames(dPSI_full_chaging)[colnames(dPSI_full_chaging) == "LENG1_b"] <-
   "LENG1"
@@ -33,7 +30,7 @@ colnames(dPSI_full_chaging)[colnames(dPSI_full_chaging) == "CCDC12_b"] <-
 colnames(dPSI_full_chaging)[colnames(dPSI_full_chaging) == "CDC5L_b"] <-
   "CDC5L"
 dim(dPSI_full_chaging)
-
+colnames(dPSI_full_chaging)
 #original table is names according to Gene.Symbol
 class <-
   read.delim(
@@ -43,10 +40,6 @@ class <-
 #so for the network I rename nodes later according to class table!!!
 colnames(dPSI_full_chaging)[!colnames(dPSI_full_chaging) %in% class$Gene.Symbol]
 dPSI <- dPSI_full_chaging
-############################################
-colnames(dPSI)
-summary(dPSI$LENGTH)
-############################################s
 dPSI <- dPSI[, 18:ncol(dPSI)]
 dPSI$RANGE <- NULL
 dPSI$Sds <- NULL
@@ -56,8 +49,11 @@ iis <- match(colnames(dPSI), class$Gene.Symbol)
 iis[is.na(iis)]
 colnames(dPSI) <- class$gene.name.VT[iis]
 colnames(dPSI)
+
+dim(dPSI)
+colnames(dPSI)
 ##########################################
-#subset to 34500
+#subset to 3500
 subset<-dPSI[sample(1:nrow(dPSI), 3500,replace = FALSE),]
 ##########################################
 #single scaled
@@ -66,8 +62,8 @@ deltascaled <- scale(subset)# scaled by columns (KDs)
 dsscaled <- t(scale(t(deltascaled)))    #scaled by events
 ####################################################
 setwd("~/Dropbox (CRG ADV)/Personal_Estefania/Network/standard/diffRho/subset3500/")
-#single scaled
-write.table(deltascaled, "A3_subset3500_sscaled.tab",  sep = "\t")
-#double scaled
-write.table(dsscaled, "A3_subset3500_dscaled.tab",  sep = "\t")
+write.table(dsscaled, "ES_subset3500_dscaled.tab",  sep = "\t")
+write.table(deltascaled, "ES_subset3500_sscaled.tab",  sep = "\t")
 ####################################################
+
+
