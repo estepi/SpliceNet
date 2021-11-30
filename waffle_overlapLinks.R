@@ -5,7 +5,7 @@ library(pheatmap)
 library(plyr)
 library(reshape) 
 ##################################################################
-setwd("~/Documents/SpliceNetRes/cor03/")
+setwd("~/Documents/SpliceNetRes/all/cor03/")
 sampleClass<-read.csv("~/Documents/summaryLinks/class_colors.tab", sep="\t", header = T)
 head(sampleClass)
 ##############################
@@ -14,14 +14,14 @@ edgelist<-read.table(edgelists$V1[1]);
 head(edgelist)
 finalDF<-data.frame()
 dim(edgelists)#2
-linkList<-list()
+linksList<-list()
 linkListNames<-list()
                 
 for (i in 1:nrow(edgelists))
 {
   file <- edgelists$V1[i]
   print(file)
-  name <-    gsub("_edgelist.tab", "", rankings$V1[i])
+  name <-    gsub("_edgelist.tab", "", edgelists$V1[i])
   print(name)
   edgelist <- read.table(file, header = T)
   #links
@@ -61,13 +61,8 @@ for (i in 1:length(linksList))
   
 }
 #####################################
-head(allLinksDF)
-ii<-grep ("NA",rownames(allLinksDF))
-allLinksDF[ii,]
-allLinksDF<-allLinksDF[-4,]
 #remove NAs
-allLinksDF
-head(forPlot)
+forPlot<-allLinksDF
 freq<-rowSums(allLinksDF>0)
 table(freq)
 top<-names(freq)[freq>=3]
@@ -145,6 +140,33 @@ linksPlot<-filter[unique(BRR2),]
 dim(linksPlot)
 
 pdf("SummaryCor_noLegend_BRR2.pdf",
+    width = 2,
+    height = 4)
+ggplot(data = linksPlot) +
+  geom_tile(aes(
+    x = network,
+    y = reorder(link, order),
+    fill = "red",
+    alpha = value
+  )) +
+  theme_classic() +
+  scale_fill_manual(values = "red") + 
+  scale_alpha_identity() +
+  theme(axis.text.x = element_text(
+    angle = 90,
+    #hjust = 400,
+    size = 10
+  )) +
+  scale_x_discrete(position = "top") +
+  theme(axis.text.y = element_text(size = 5)) +
+  theme(legend.position = "none")
+dev.off()
+
+###########################################
+CRNKL1<-grep("CRNKL1", filter$link)
+linksPlot<-filter[unique(CRNKL1),]    
+dim(linksPlot)
+pdf("SummaryCor_noLegend_CRNKL1.pdf",
     width = 2,
     height = 4)
 ggplot(data = linksPlot) +

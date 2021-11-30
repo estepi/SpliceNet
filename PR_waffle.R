@@ -5,7 +5,7 @@ library(pheatmap)
 library(plyr)
 library(reshape) 
 ##################################################################
-setwd("~/Documents/SpliceNetRes/cor03/")
+setwd("~/Documents/SpliceNetRes/subset3500/cor03/")
 rankings<-read.table("centrality.txt", header = F, stringsAsFactors = F ,sep="\t")
 rankings
 sampleClass<-read.csv("~/Documents/summaryLinks/class_colors.tab", sep="\t", header = T)
@@ -49,9 +49,7 @@ head(sampleClass)
          
 #####################################
 head(allNodesDF)
-ii<-grep ("NA",rownames(allNodesDF))
-allNodesDF<-allNodesDF[-c(140,163),]
-#remove NAs
+
 forPlot<-allNodesDF
                   #paso a 0s y 1s
                   rownames(allNodesDF)                  
@@ -106,8 +104,4 @@ ggplot(data = filter) +
 dev.off()
 
 #################################################
-ik<-  grep("IK", rownames(allLinksDF))
-linksPlot<-allLinksDF[unique(ex1),]    
-linksPlot
-linksPlot$occur<-NULL
-head(linksPlot)
+
