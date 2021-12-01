@@ -1,17 +1,17 @@
 ###############################################
 library(igraph)
 ###############################################
-folder<-"~/Dropbox (CRG ADV)//Personal_Estefania/SpliceNetRes/cor03/"
+folder<-"~/Dropbox (CRG ADV)//Personal_Estefania/SpliceNetRes/subset3500/cor03/"
 setwd(folder)
-
+dir()
 class<-read.delim("~/Dropbox (CRG ADV)//Personal_Estefania/Network/standard/diffRho/plot/class_colors_2020.txt", header = T)
 head(class)
 
 #############################################
-ES<-read.table("ES_edgelist.tab", header = T); head(ES)
-IR<-read.table("IR_edgelist.tab", header = T); head(IR)
-A5<-read.table("A5_edgelist.tab", header = T); head(A5)
-A3<-read.table("A3_edgelist.tab", header = T); head(A3)
+ES<-read.table("ES_edgelist.tab", header = T); head(ES); dim(ES)#1050
+IR<-read.table("IR_edgelist.tab", header = T); head(IR); dim(IR)#2212
+A5<-read.table("A5_edgelist.tab", header = T); head(A5); dim(A5)#583
+A3<-read.table("A3_edgelist.tab", header = T); head(A3); dim(A3)#783
 ###########################
 g1 <- graph_from_data_frame(A3[,7:8], directed = FALSE)
 #g1
@@ -35,7 +35,7 @@ ii <- match(names(V(g1)), class$gene.name.VT)
 V(g1)$label_color = class$color[ii]
 V(g1)$label_color[is.na(V(g1)$label_color)] <- "grey"
 ###############################################################
-dset = "A3_all"
+dset = "A3_3500"
 pdfile <- paste(dset, "network.pdf", sep = "_")
 
 pdf(pdfile, width = 12,  height = 12)

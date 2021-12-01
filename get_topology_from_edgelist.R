@@ -26,7 +26,7 @@ NetworkDesc <- function(g, name)
               sep = "\t")
 }
 #####################################################################
-setwd("~/Dropbox (CRG ADV)/Personal_Estefania/SpliceNetRes/cor03/")
+setwd("~/Dropbox (CRG ADV)/Personal_Estefania/SpliceNetRes/subset3500/cor03/")
 
 file.names <- dir(path = ".", pattern = "\\_edgelist.tab")
 file.names
