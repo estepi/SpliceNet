@@ -5,3 +5,19 @@ Scripts associated to transcriptome-wide analysis of the effects of systematic k
 
 To  systematically  explore  the  functions  of  core  splicing  factors  and regulators  in  alternative  splicing,  RNA-seq  analyses  were  carried  out  upon  the knockdown  of  over  304  splicing-related  factors.  
 
+# Network FDR computation
+Install libraries:
+optparse
+parallel
+tibble
+tidyr
+utils
+dplyr
+
+
+# Prepare tables
+
+# Single Cor
+
+
+
