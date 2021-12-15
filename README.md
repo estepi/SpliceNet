@@ -7,12 +7,11 @@ To  systematically  explore  the  functions  of  core  splicing  factors  and re
 
 # Network FDR computation
 Install libraries:
-optparse
-parallel
-tibble
-tidyr
-utils
-dplyr
+## optparse
+## parallel
+## tibble
+## tidyr
+## utils
 
 
 # Prepare tables
