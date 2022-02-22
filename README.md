@@ -40,5 +40,9 @@ As noiser is the data, more random links will be find, higher FDR
 - -f sscaled.tab (file: input file, should be prepared in advance. It contains only dPSI values, scaled or not  ex: sscaled.tab) 
 - -n A3short (name: prefix to use for output files, ej: A3short)
 
+## Output:
+The function returns a table and their corresponding plots for the number of links for real and random data in the interval of correlations
+FDR is computed as Number of Links RANDOM data / Number of links in REAL data * 100
+
 # Extract centrality
 
