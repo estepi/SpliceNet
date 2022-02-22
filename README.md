@@ -23,7 +23,7 @@ This script computes Network FDR represented as the ratio betwenn TRUE links and
 
 dPSI values can be none, single or double scaled (should be prepared in advance, see :...)
 
-The function retunrs the total number of links which are below a given correlation value and are significant (pvalue <0.1).
+The function retunrs the total number of links which are below a given correlation value and are significant (corrected pvalue <0.1).
 Expected values are higher FDR at lower correlation values
 
 Matrix randomization is prepared randomizing rows, so correlation between columns are disrupted
