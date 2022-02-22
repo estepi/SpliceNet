@@ -7,52 +7,14 @@ flat_cor_mat <- function(cor_r, cor_p) {
   cor_p <- gather(cor_p, column, p,-1)
   cor_p_matrix <- left_join(cor_r, cor_p, by = c("row", "column"))
 }
-####################################################################
-getEdges <- function(M, min, fdr)
-  # return edges
-{
-  df <-    rcorr(M)
-  cor_r <- df$r
-  cor_p <- df$P
-  summary(cor_p)
-  df2 <- flat_cor_mat(cor_r, cor_p)
-  colnames(df2)[1:2]<-c("so","tg")
-  head(df2)
-  df2Clean <-   df2[df2$so != df2$tg,]
-  df2Clean$absCor<-abs( df2Clean$cor)  
-  df2Clean$p
-  df2Clean$fdr <- p.adjust(df2Clean$p, method = "fdr")
-  head(df2Clean$fdr)
-  
-  links <- df2Clean[df2Clean$absCor > min &
-                      df2Clean$fdr < fdr,]
-  
-  edgeListLCSort<-data.frame(t(unlist(apply(links[,1:2],
-                                            1, function(x){sort(x)}))))
-  head(edgeListLCSort)
-  final<-data.frame(links,"source"=  edgeListLCSort$X1, 
-                    "target" =edgeListLCSort$X2,
-                     link=paste(edgeListLCSort$X1,
-                               edgeListLCSort$X2, sep="-"))
-  finalUnique<-final[!duplicated(final$link),]
-  print(head(finalUnique))
-  return(nrow(finalUnique))
-}
 ########################################################
 getCorM <- function(M, min, fdr)
 {
   df <-    rcorr(M)
-  head(df)
-  
   cor_r <- df$r
-  head(cor_r)
-  
   cor_p <- df$P
-  head(cor_p)
-  
   df2 <- flat_cor_mat(cor_r, cor_p)
   colnames(df2)[1:2]<-c("so","tg")
-  
   
   df2Clean <-
   df2[df2$so != df2$tg,]
@@ -77,78 +39,56 @@ getCorM <- function(M, min, fdr)
   return(finalUnique)
   
 }
+#OK,extract netwotks from the different MATRIXS
 ######################################################################
 #agregar from to como parametros
-getEdgesByRHO <- function(RList, start, end, interval, ncores, fdr)
+
+getCentralityByCOR <- function(M, start, end, interval, fdr)
 {
-  MList <- vector("list", length(seq(start, end, interval)))
-  for (rho in seq(start,
-                  end, interval))
-  {
-    res <- unlist(mclapply(RList,  getEdges,  rho,  mc.cores = ncores, fdr=fdr))
+  vrange<-seq(start,  end, interval)
+  resMatrixDG<-data.frame(matrix(ncol=length(vrange), nrow = ncol(M)))
+  colnames(resMatrixDG)<-vrange
+  rownames(resMatrixDG)<-colnames(M)
+  head(resMatrixDG)
+  
+  resMatrixNDG<-data.frame(matrix(ncol=length(vrange), nrow = ncol(M)))
+  colnames(resMatrixNDG)<-vrange
+  rownames(resMatrixNDG)<-colnames(M)
+  head(resMatrixNDG)
+  
+  MList <- vector("list", length(vrange))
+  DGList <- vector("list", length(vrange))
+  NDGList <- vector("list", length(vrange))
+  
+  
+  i=1
+  for (i in 1:length(vrange))
+    {
+    print(i)
+    print(vrange[i])
+    res <- getCorM(sampleData, vrange[i],  fdr=fdr)
+    g<-graph_from_data_frame(res[, 7:8], directed = FALSE)
+    DG <- degree(g)
+    NDG <- DG / length(E(g))#
+    
     MList[[i]] <- res
+    DGList[[i]] <- DG
+    NDGList[[i]] <- NDG
     i <- i + 1
   }
-  return(MList)
-}
-######################################################################
-#rho sera el valor de corte de la correlacion ahora
-getEdgesBySample <- function(rrlist, rho, fdr)
-{
   
-  RRList <- vector("list")
-  i = 1
-for (i in 1:length(rrlist))
+  p=1
+  for(p in 1:length(vrange))
   {
-    res <- mean(unlist(lapply(rrlist[[i]],  getEdges,  rho, fdr)))
-    RRList[[i]] <- res
-    i <- i + 1
+    dd <- match(rownames(resMatrixDG), names(unlist(DGList[[p]])))
+    resMatrixDG[, p] <- unlist(DGList[[p]])[dd]
+    
+    nn <- match(rownames(resMatrixNDG), names(unlist(NDGList[[p]])))
+    resMatrixNDG[, p] <- unlist(NDGList[[p]])[nn]
   }
-  return(RRList)
-}
-#############################################################
-#esta es la funcion que vamos a modificar poniendo el threshold en la correlacion
-
-getEdgesByRHO <- function(RList, start, end, interval, ncores, fdr)
-{
-  MList <- vector("list", length(seq(start, end, interval)))
-  i = 1
   
-  for (rho in seq(start,
-                  end, interval))
-  {
-    res <- unlist(mclapply(RList,  
-                           getEdges, 
-                           rho,  mc.cores = ncores, fdr))
-    MList[[i]] <- res
-    i <- i + 1
-  }
-  return(MList)
-}
-#########################Plots###########################################
-computeCentrality<-function(
-  inputM=sampleData,#eventscaled
-  start=0.3,
-  end=1,
-  interval=0.05,
-  ncores=1)
-{
-  TrueList<-vector("list",1)
-  TrueList[[1]]<-sampleData
-#cargao la matrix   
-  #input matriz output conectivity dif correlation values
-TrueEdgesList<-getEdgesByRHO(TPList, start, end, interval, ncores)
-
-message("Finish computation")
-  
-
+  ResList<-list(resMatrixDG, resMatrixNDG)
+  return(ResList)
 }
 
 
-
-NetworkDesc <- function(g)
-{
-###################################################
-  DG <- degree(g)
-  NDG <- DG / length(E(g))#
-}
