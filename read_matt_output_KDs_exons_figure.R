@@ -12,7 +12,7 @@ head(featuresClass)
 
 #list of folders which
 dir(folder)
-exp<-data.frame( dir(folder,pattern="^exons_do_c"), stringsAsFactors = F)
+exp<-data.frame( dir(folder,pattern="^exons_up_c"), stringsAsFactors = F)
 colnames(exp)<-"exp"
 
 featuresTable<-data.frame()
@@ -24,18 +24,18 @@ dir()
 for (i in 1:nrow(exp))
 {
   dset<-exp$exp[i]
-  name<-gsub("exons_do_c_", "", dset)
+  name<-gsub("exons_up_c_", "", dset)
   print(name)
   #################
   paste(dset,"overview_of_features_and_comparisons.tab", sep="/")
   
-  col<-"PVAL_MANN_WHITNEY_U_TEST_down_VS_bgConst"
+  col<-"PVAL_MANN_WHITNEY_U_TEST_bgConst_VS_up"
   featuresTable<-rbind(featuresTable,
                        data.frame(t(read.table(file= 
                                               paste(dset,"overview_of_features_and_comparisons.tab", sep="/"),
                                                header = T, row.names = 1, sep="\t"))) [col,]  )
   ########################################################
-  colDir<-"QUAL_MANN_WHITNEY_U_TEST_down_VS_bgConst"
+  colDir<-"QUAL_MANN_WHITNEY_U_TEST_bgConst_VS_up"
 
   directionTable<-rbind(directionTable,
                         data.frame(t(read.table(file= 
@@ -53,7 +53,7 @@ for (i in 1:nrow(exp))
   
   rownames(meanTableBg)[i]<-name
   ##################################################
-  meanDir<-"down_MEAN"
+  meanDir<-"up_MEAN"
   print(meanDir)
   meanTable<-rbind(meanTable,
                    data.frame(t(read.table(file= 
@@ -68,18 +68,6 @@ head(directionTable); dim(directionTable)
 head(meanTable); dim(meanTable)
 head(meanTableBg); dim(meanTableBg)
 
-write.table(featuresTable, file="features_all.tab", sep="\t", col.names = NA)
-write.table(directionTable, file="direction_all.tab", sep="\t", col.names = NA)
-write.table(meanTable, file="meanTable_all.tab", sep="\t", col.names = NA)
-write.table(meanTableBg, file="meanTable_BgC.tab", sep="\t", col.names = NA)
-###########################################################
-featuresTable<-read.table("features_all.tab", 
-                          sep="\t", header = T, row.names = 1)
-directionTable<-read.table("direction_all.tab",
-                           sep="\t", header = T, row.names = 1)
-meanTable<-read.table("mean_all.tab", 
-                      sep="\t", header = T, row.names = 1)
-###########################################################
 Numeric<-data.frame(matrix(unlist(apply(meanTable,1,
                                         as.numeric)), 
                            ncol=ncol(meanTable),
@@ -146,7 +134,6 @@ dim(forPlotMeltdd)
 ###############################################
 figureNum<-Numeric[,mm]
 head(figuremm)
-write.table(figureNum, "meanValues.tab", sep="\t")
 forPlotVal<-figureNum
 forPlotVal$dset<-rownames(forPlotVal)
 forPlotMeltVal <- melt(forPlotVal, 
@@ -213,22 +200,24 @@ combinedBG<-rbind(combined, meanBgF)
 ###############################################
 combinedBG$dsetOrder<-rep(1, nrow(combinedBG))
 levels(combinedBg$dset)
-pdf("Exons_all_bg0_kdsRe.pdf",
-    width=18, height=18)
+
+pdf("Exons_up_vs_bgConst_meanValues.pdf",
+    width=6, height=30)
 ggplot(combinedBG, aes(y= reorder(dset,dsetOrder),
                        x=reorder(shortName,order))) + 
   geom_tile( aes( fill=direction, 
                   alpha=meanVal),
              color = "black", size=0)   + 
-  geom_text(aes(label=MEAN), size=4, fontface='bold') +
+  geom_text(aes(label=MEAN), size=2) +
   scale_alpha_identity() +
   theme_classic()+
   theme(axis.text.x = element_text(angle = 90, 
                                    hjust = 0, 
-                                   size=20))+
-  theme(axis.text.y = element_text( size=10))+
+                                   size=10))+
+  theme(axis.text.y = element_text( size=6))+
   scale_fill_manual(values=c("white","red","blue")) +
   scale_x_discrete(position = 'top')+
   scale_y_discrete(position = 'right')
 dev.off()
-###############ordenar por la mean de 1 variable:
+
+getwd()
