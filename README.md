@@ -35,7 +35,7 @@ As noiser is the data, more random links will be find, higher FDR
 - -e 0.4  (end: till which correlation value the funcion scan the data. Correlation values are between 0 and 1)
 - -i 0.02 (interval: size of the interval to compute the correlation.  For example, 0.02 means you will scan 0, 0.02, 0.04, 0.06, etc)
 - -r 100 (number of random matrixes. Nuber of links in random data come from the mean of the number of links of those matrixs)
-- -b (bin: folder where the scripts are)
+- -b (bin: folder where functions_fdr_MC_cor.R is)
 - -c 12 (cores: number of cores to use)
 - -f sscaled.tab (file: input file, should be prepared in advance. It contains only dPSI values, scaled or not  ex: sscaled.tab) 
 - -n A3short (name: prefix to use for output files, ej: A3short)
