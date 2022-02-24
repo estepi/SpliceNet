@@ -106,11 +106,14 @@ source(sc3)
 DGList <- getCentralityByCOR(sampleData, start, end, interval, fdr)
 #########################################################
 print("Finish computation. Lets plot")
+FileName<-paste(name, start, end, sep="-")
 DGdf <- DGList[[1]]
-degreeFile <- paste(name, "degree.tab", sep = "_")
+DGdf[is.na(DGdf)] <- 0
+degreeFile <- paste(FileName, "degree.tab", sep = "_")
 write.table(DGdf, degreeFile, sep = "\t", col.names = NA)
 #########################################################
-NormDegreeFile <- paste(name, "norm_degree.tab", sep = "_")
+NormDegreeFile <- paste(FileName, "norm_degree.tab", sep = "_")
 NDGdf <- DGList[[2]]
+NDGdf[is.na(NDGdf)] <- 0
 write.table(NDGdf, NormDegreeFile, sep = "\t", col.names = NA)
 #########################################################

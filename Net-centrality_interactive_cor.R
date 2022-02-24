@@ -1,7 +1,6 @@
 ##############################################################
 library(parallel)##multicores
 library(Hmisc)# correlation matrix
-library(optparse)#parse input 
 library(tibble)#rownmaes_to_columns
 library(tidyr)#gather
 library(dplyr)#left join
@@ -9,97 +8,19 @@ library(igraph)# networks
 library(scales)#scaling
 library(reshape) #for plot
 library(ggplot2)#for plot
+library(pheatmap)#for plot
 #
 
-
-##############################################################
-option_list = list(
-  make_option(
-    c("-f", "--file"),
-    type = "character",
-    default = NULL,
-    help = "matrix file name",
-    metavar = "character"
-  ),
-  make_option(
-    c("-o", "--order"),
-    type = "character",
-    default = NULL,
-    help = "classification file name",
-    metavar = "character"
-  ),
-  make_option(
-    c("-s", "--start"),
-    type = "numeric",
-    default = "0.1",
-    help = "value of rho to start scanning [default= %default]",
-    metavar = "character"
-  ),
-  make_option(
-    c("-e", "--end"),
-    type = "numeric",
-    default = "0.4",
-    help = "value of rho to finish scanning [default= %default]",
-    metavar = "character"
-  ),
-  make_option(
-    c("-i", "--interval"),
-    type = "numeric",
-    default = "0.02",
-    help = "interval between each cor value [default= %default]",
-    metavar = "character"
-  ),
-  make_option(
-    c("-c", "--cores"),
-    type = "numeric",
-    default = "1",
-    help = "number of cores to use[default= %default]",
-    metavar = "character"
-  ),
-  make_option(
-    c("-b", "--bin"),
-    type = "character",
-    default = getwd(),
-    help = "abs path folder of scripts [default= %default]",
-    metavar = "character"
-  ),
-  make_option(
-    c("-n", "--name"),
-    type = "character",
-    default = "test",
-    help = "sufix for output [default= %test]",
-    metavar = "character"
-  )
-)
-
-opt_parser = OptionParser(option_list=option_list)
-opt = parse_args(opt_parser)
-##############################################
-print(opt$file)
-print(opt$order)
-print(opt$name)
-print(opt$start)
-print(opt$end)
-print(opt$interval)
-print(opt$cores)
-print(opt$bin)
-##############################################
-opt_parser = OptionParser(option_list=option_list)
-opt = parse_args(opt_parser)
-##############################################
-t_Zvals<-read.table(opt$file)
+t_Zvals<-read.table("/home/estepi/Documents/SpliceNetData/input/ES_subset3500_sscaled.tab")
 sampleData <- as.matrix(t_Zvals)
-sampleClass<-read.delim(opt$order, sep="\t", header = T)
-print(head(sampleClass))
-print(colnames(sampleClass))
-print(head(sampleClass$color))
-name<-opt$name
-start<-opt$start
-end<-opt$end
-interval<-opt$interval
-ncores <-opt$cores
+sampleClass<-read.csv("~/Documents/summaryLinks/class_colors.tab", sep="\t", header = T)
+name<-"ES"
+start<- 0.1
+end<- 0.6
+interval<-0.02
+ncores <- 1
 fdr<-0.01
-scripts<-opt$bin
+scripts<-"/home/estepi/Documents/SpliceNet"
 sc3 <- paste(scripts, "functions_centrality_MC_cor.R", sep = "/")
 #esta funcion se carga de sc3
 source(sc3)
@@ -107,13 +28,16 @@ DGList <- getCentralityByCOR(sampleData, start, end, interval, fdr)
 #########################################################
 print("Finish computation. Lets plot")
 DGdf <- DGList[[1]]
-degreeFile <- paste(name, "degree.tab", sep = "_")
+DGdf[is.na(DGdf)] <- 0
+
+FileName<-paste(name, start, end, sep="-")
+degreeFile <- paste(FileName, "degree.tab", sep = "_")
 write.table(DGdf, degreeFile, sep = "\t", col.names = NA)
 #########################################################
-NormDegreeFile <- paste(name, "norm_degree.tab", sep = "_")
+NormDegreeFile <- paste(FileName, "norm_degree.tab", sep = "_")
 NDGdf <- DGList[[2]]
+NDGdf[is.na(NDGdf)] <- 0
 write.table(NDGdf, NormDegreeFile, sep = "\t", col.names = NA)
-#########################################################
 #########################################################
 forPlot <- NDGdf
 forPlot$gene <- rownames(forPlot)
@@ -131,7 +55,7 @@ cc <- match(complex, sampleClass$Class...family.small)
 color <- sampleClass$color[cc]
 names(color) <- complex
 #################################################
-tilePlot <- paste(name, "NormDegree.pdf", sep = "_")
+tilePlot <- paste(FileName, "NormDegree.pdf", sep = "_")
 pdf(tilePlot, width = 4, height = 12)
 ggplot(data = forPlotMelt) +
   geom_tile(aes(
@@ -152,7 +76,7 @@ ggplot(data = forPlotMelt) +
   theme(legend.position = "none")
 dev.off()
 #################################################
-curvesPlot <- paste(name, "NormDegree_curves_order.pdf", sep = "_")
+curvesPlot <- paste(FileName, "NormDegree_curves_order.pdf", sep = "_")
 pdf(curvesPlot, width = 11.69,  height = 8.27)
 ggplot(data = forPlotMelt,
        aes(
@@ -165,7 +89,7 @@ ggplot(data = forPlotMelt,
   geom_line()
 dev.off()
 #################################################
-curvesPlotClass <- paste(name, "NormDegree_curves_class.pdf", sep = "_")
+curvesPlotClass <- paste(FileName, "NormDegree_curves_class.pdf", sep = "_")
 pdf(curvesPlotClass, width = 11.69,  height = 8.27)
 ggplot(data = forPlotMelt,
        aes(
@@ -176,4 +100,49 @@ ggplot(data = forPlotMelt,
        )) +
   theme_minimal() +
   geom_line()
+dev.off()
+##############################################
+#cluter factors (aacording norm degree)
+#add annotation
+#correct scale
+###############################################
+paletteLength=100
+myColor <- colorRampPalette(c("white", "red"))(paletteLength)
+# use floor and ceiling to deal with even/odd length pallettelengths
+ClassID<-data.frame(gene=sampleClass$gene.name.VT,
+                    class=sampleClass$Class...family.small)
+rownames(ClassID)<-sampleClass$gene.name.VT
+ClassID$gene<-NULL
+ClassColors<-data.frame(class=unique(sampleClass$Class...family.small))
+ClassColors$RGBcolor <- sampleClass$color[match(ClassColors$class,
+                                                sampleClass$Class...family.small)]
+
+ClassColorsVector<-ClassColors$RGBcolor
+names(ClassColorsVector)<-ClassColors$class
+ann_colors = list(class =  ClassColorsVector)
+
+heatmapPDF<-paste(FileName, "ND_heatmap.pdf",sep="_")
+pdf(heatmapPDF, width =6,  height = 20)
+pheatmap(
+  NDGdf,
+  fontsize_col = 10,
+  fontsize_row = 6,
+  cluster_rows = TRUE,
+  cluster_cols = FALSE,
+  color = myColor,
+  annotation_row =   ClassID,
+  annotation_colors = ann_colors)
+dev.off()
+
+heatmapPDF<-paste(FileName, "DG_heatmap.pdf",sep="_")
+pdf(heatmapPDF, width =6,  height = 20)
+pheatmap(
+  DGdf,
+  fontsize_col = 10,
+  fontsize_row = 6,
+  cluster_rows = TRUE,
+  cluster_cols = FALSE,
+  color = myColor,
+  annotation_row =   ClassID,
+  annotation_colors = ann_colors)
 dev.off()
