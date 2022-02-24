@@ -106,11 +106,12 @@ end
 DGList<-getCentralityByCOR(inputM, start, end, interval, fdr)
 length(DGList)
 #order according sample calssification
+library(data.table)
 
-x[is.na(x)] <- 0
-#hacer el heatmap
-DGdf<-DGList[[1]]
-DGdf[is.na[DGdf]]<-0
+dfFILL <- nafill(DGdf, fill=0)
+
+head(DGdf)
+head(dfFILL)
 
 write.table(DGdf, "degree.tab", sep="\t", col.names = NA)
 
