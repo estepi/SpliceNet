@@ -10,9 +10,7 @@ library(scales)#scaling
 library(reshape) #for plot
 library(ggplot2)#for plot
 #
-
-
-##############################################################
+#############################################################
 option_list = list(
   make_option(
     c("-f", "--file"),

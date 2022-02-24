@@ -64,20 +64,26 @@ minCor<-opt$min
 print(paste("Min cor:",minCor))
 fdr<-opt$fdr
 scripts<-opt$bin
-sc3<-paste(scripts, "functions_fdr_MC_cor.R", sep="/")
-#esta funcion se carga de sc3
-source(sc3)
 sampleData<-read.table(opt$file, sep="\t", header=T) 
-
-source( "functions_fdr_MC_cor.R")
-sampleData<-read.table(file = "~/Dropbox (CRG ADV)/Personal_Estefania/Network/standard/diffRho/A3_all_dscaled.tab") 
-
+#####################################################################
+# to run interactively
+#t_Zvals<-read.table("")
+#sampleData <- as.matrix(t_Zvals)
+#sampleClass<-read.csv("class_colors.tab", sep="\t", header = T)
+#name<-"ES"
+#minCor=0.3
+#fdr=0.1
+# scripts<-".../SpliceNet"
+#####################################################################
+sc3<-paste(scripts, "functions_fdr_MC_cor.R", sep="/")
+source(sc3)
 M <- as.matrix(sampleData)
-
 corM <- getCorM(M, min=0.4, fdr=1)
-dim(corM)
-
-write.table(corM, 
-	   file=paste(name, "edgelist.tab" , sep="_"), 
-	   sep="\t",quote=F)
-
+head(corM)
+write.table(
+  corM,
+  file = paste(name, "edgelist.tab" , sep = "_"),
+  sep = "\t",
+  quote = F
+)
+#####################################################################
