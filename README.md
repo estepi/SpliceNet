@@ -1,12 +1,16 @@
 # SpliceNet
-Scripts associated to transcriptome-wide analysis of the effects of systematic knock down of splicing factors and regulators using siRNAs in HeLa cells
-
-# Description
 
 To  systematically  explore  the  functions  of  core  splicing  factors  and regulators  in  alternative  splicing,  RNA-seq  analyses  were  carried  out  upon  the knockdown  of  over  304  splicing-related  factors.  
 
-# Network FDR computation
-Install libraries:
+# Main scripts
+
+Scripts associated to transcriptome-wide analysis of the effects of systematic knock down of splicing factors and regulators using siRNAs in HeLa cells.
+All scripts were written in R. 
+
+## Network FDR computation
+
+Requiered libraries:
+* R version: 
 * optparse
 * parallel
 * tibble
@@ -14,9 +18,11 @@ Install libraries:
 * utils
 
 
-# Prepare tables
+## Prepare tables
+PSI calculation was performed using VAST-TOOLS (jjjj9) version...
+RAWDTA:
 
-# Single Cor
+## Scaling
 
 ## fdr_CL_cor.R
 This script computes Network FDR represented as the ratio betwenn TRUE links and RANDOM links. Input file is a matrix with EVENTS in rows and KDs (samples) in the column
@@ -29,7 +35,7 @@ Expected values are higher FDR at lower correlation values
 Matrix randomization is prepared randomizing rows, so correlation between columns are disrupted
 As noiser is the data, more random links will be find, higher FDR
 
-## Parameters:
+* Parameters:
 
 - -s 0.1 (start: from which correlation value the function scan the data. Correlation values are between 0 and 1)
 - -e 0.4  (end: till which correlation value the funcion scan the data. Correlation values are between 0 and 1)
@@ -40,9 +46,25 @@ As noiser is the data, more random links will be find, higher FDR
 - -f sscaled.tab (file: input file, should be prepared in advance. It contains only dPSI values, scaled or not  ex: sscaled.tab) 
 - -n A3short (name: prefix to use for output files, ej: A3short)
 
-## Output:
+* Output:
 The function returns a table and their corresponding plots for the number of links for real and random data in the interval of correlations
 FDR is computed as Number of Links RANDOM data / Number of links in REAL data * 100
 
-# Extract centrality
+## Single Cor
+* singlecor.R
 
+Compute single correlation for a given dPSI table
+* Input: Numeric matrix (only dPSI values, scaled or not), mininum correlation value, scripts folder, sample name
+ 
+* Output: for a given threshold of correlation, it returns the edgelist: 
++   so, tg: source and target original order
++   Pearson cor and absCor, with  pvalue and fdr,
++  source and target alphabetically ordered,
++   link's name
+
+# Extract centrality
+-  Net-centrality_CL_cor.R (for command line)
+-  Net-centrality_interactive_cor.R (to run interactively)
+
+For a given input matrix, it extracts degree (and normalized degree) poe each KD in a given interval of correlations
+It can help to identify high/low stable factors.
