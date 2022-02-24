@@ -57,10 +57,10 @@ Compute single correlation for a given dPSI table
 * Input: Numeric matrix (only dPSI values, scaled or not), mininum correlation value, scripts folder, sample name
  
 * Output: for a given threshold of correlation, it returns the edgelist: 
-**   so, tg: source and target original order
-**   Pearson cor and absCor, with  pvalue and fdr,
-**  source and target alphabetically ordered,
-**   link's name
++   so, tg: source and target original order
++   Pearson cor and absCor, with  pvalue and fdr,
++  source and target alphabetically ordered,
++   link's name
 
 # Extract centrality
 -  Net-centrality_CL_cor.R (for command line)
