@@ -1,12 +1,5 @@
-#first generate data: TRUE and RANDOM DATA
 library(optparse)# yes
-library(parallel)
-library(Hmisc)
-library(tibble)
-library(tidyr)
-library(utils)
-library(dplyr)
-##############################################################
+###############################################3
 option_list = list(
   make_option(
     c("-f", "--file"),
@@ -70,9 +63,18 @@ opt = parse_args(opt_parser)
 
 if (is.null(opt$file)){
   print_help(opt_parser)
-  stop("At least one argument must be supplied (input file).n", call.=FALSE)
+  stop("Example 
+       Rscript -f ES_subset3500_sscaled.tab -r 2 -s 0.1 -e 0.2 -i 0.05 -c 1 -b ~/Documents/SpliceNet -n testCL 
+       At least one argument must be supplied (input file).n", call.=FALSE)
 }
 ##############################################
+library(parallel)
+library(Hmisc)
+library(tibble)
+library(tidyr)
+library(utils)
+library(dplyr)
+
 t_Zvals<-read.table(opt$file)
 sampleData <- as.matrix(t_Zvals)
 name<-opt$name
@@ -82,13 +84,24 @@ end<-opt$end
 interval<-opt$interval
 ncores <-opt$cores
 fdr<-0.01
+##############################################
+#to run interactively, uncomment following lines:
+#t_Zvals<-read.table("/home/estepi/Documents/SpliceNetData/input/ES_subset3500_sscaled.tab")
+#sampleData <- as.matrix(t_Zvals)
+#name<-"ES"
+#start<- 0.1
+#end<- 0.2
+#interval<-0.02
+#ncores <- 1
+#fdr<-0.01
+#NumRandomM<-5
+#fdr<-0.01
+##############################################
+scripts<-"/home/estepi/Documents/SpliceNet"
+sc3<-paste(scripts, "functions_fdr_MC_cor.R", sep="/")
+source(sc3)
 
 print(c(start,end, interval, NumRandomM))
-scripts<-opt$bin
-sc3<-paste(scripts, "functions_fdr_MC_cor.R", sep="/")
-
-#esta funcion se carga de sc3
-source(sc3)
 
 estimateFDR(  inputM=sampleData,  
               NumRandomM,   start,  end,   interval,  ncores,  name, fdr)
