@@ -66,10 +66,7 @@ We add an extra layer of filtering discarding thos IR events with *unbalanced* c
 - delta PSI was greater than 25 (?)
 
 ### Total initial input:
-* ES:
-* IR:
-* A5:
-* A3:
+   46360 links (*(305*305)-305*))
  
 ## AS Cross Regulatory Network: Corss_edges.csv
  From AS profile table, we only consider events which belong to Knock Down genes and  dpSI > 25. **CHECK GOSIA** 
@@ -77,6 +74,8 @@ We add an extra layer of filtering discarding thos IR events with *unbalanced* c
  From this analysis we can estimate the effect of cross regulation between splicing factors via alternative splicing
  
  In this table you can filter by Source, Target and dPSI
+ 
+ Total edges: **9966 **
  
  ### Total input:
 
