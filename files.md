@@ -83,8 +83,21 @@ We add an extra layer of filtering discarding thos IR events with *unbalanced* c
 ### AS Functional Network
 
 In order to decipher functional relationships between splicing factors, we computed Pearson pairwise correlations
-For each dataset (event type, ES, IR, A5, A3) we computed Network FDR and  Pearson correlation and corresponding pvalue for each pair. We report all possible correlations with a significant pvalue (< 0.1)
+For each dataset (event type, ES, IR, A5, A3) we computed Network FDR and  Pearson correlation and corresponding pvalue for each pair. We report all possible correlations
 
+* Input:
+
+     - A3_all_sscaled.tab: 6094 events
+     - A5_all_sscaled.tab: : 3677 events
+     - ES_all_sscaled.tab: 16722 events
+     - IR_all_sscaled.tab: 15381 events 
+     
+* Script parameter	
+
+singlecor.R -m 0 -f A3_all_sscaled.tab  -p  1 -n A3 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
+singlecor.R -m 0 -f A5_all_sscaled.tab  -p 1 -n A5 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
+singlecor.R -m 0 -f ES_all_sscaled.tab  -p 1 -n ES -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
+singlecor.R -m 0 -f IR_all_sscaled.tab  -p 1 -n IR -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
 
 
 ### CLASS COLORS class_colors.txt
