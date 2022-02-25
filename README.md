@@ -57,10 +57,10 @@ FDR is computed as Number of Links RANDOM data / Number of links in REAL data * 
 
 For our files (see files):
 
-Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet -c 12     -f  A3_all_sscaled.tab -n A3long
-Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet -c 12  -f A5_all_sscaled.tab -n A5long
-Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet -c 12  -f ES_all_sscaled.tab -n ESlong
-Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet -c 12  -f IR_all_sscaled.tab -n IRlong
+* Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet -c 12     -f  A3_all_sscaled.tab -n A3long
+* Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet -c 12  -f A5_all_sscaled.tab -n A5long
+* Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet -c 12  -f ES_all_sscaled.tab -n ESlong
+* Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet -c 12  -f IR_all_sscaled.tab -n IRlong
 
 ## Single Cor
 * singlecor.R (use by CL or interactively)
@@ -71,17 +71,17 @@ Compute single correlation for a given dPSI table
 - Usage:
 
 * Output: for a given threshold of correlation, it returns the edgelist: 
-+   so, tg: source and target original order
-+   Pearson cor and absCor, with  pvalue and fdr,
-+  source and target alphabetically ordered,
-+   link's name
+-   so, tg: source and target original order
+-   Pearson cor and absCor, with  pvalue and fdr,
+-  source and target alphabetically ordered,
+-   link's name
 
 * For our files:
 
-singlecor.R -m 0 -f A3_all_sscaled.tab  -p  1 -n A3 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
-singlecor.R -m 0 -f A5_all_sscaled.tab  -p 1 -n A5 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
-singlecor.R -m 0 -f ES_all_sscaled.tab  -p 1 -n ES -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
-singlecor.R -m 0 -f IR_all_sscaled.tab  -p 1 -n IR -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
+* singlecor.R -m 0 -f A3_all_sscaled.tab  -p  1 -n A3 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
+* singlecor.R -m 0 -f A5_all_sscaled.tab  -p 1 -n A5 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
+* singlecor.R -m 0 -f ES_all_sscaled.tab  -p 1 -n ES -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
+* singlecor.R -m 0 -f IR_all_sscaled.tab  -p 1 -n IR -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
 
 # Extract centrality
 -  Net-centrality_CL_cor.R (for command line)
