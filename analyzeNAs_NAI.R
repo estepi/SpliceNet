@@ -1,5 +1,4 @@
 #finalMatrixCOmparison
-setwd("~/useful/")
 library(data.table)
 library(stringr)
 INCFile<-""
