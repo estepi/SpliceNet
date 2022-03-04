@@ -7,12 +7,14 @@ To  systematically  explore  the  functions  of  core  splicing  factors  and re
 
 * git clone https://github.com/estepi/SpliceNet
 
-![alt text](https://github.com/estepi/SpliceNet/blob/main/Rstudio.png?raw=true)
+![alt text](https://github.com/estepi/SpliceNet/blob/main/gitclone.png?raw=true)
 
 ## Using RStudio:
 
 * File -> New project -> Version Control -> GiT -> Clone a project from Git repository
 
+
+![alt text](https://github.com/estepi/SpliceNet/blob/main/Rstudio.png?raw=true)
 
 
 # Main scripts
