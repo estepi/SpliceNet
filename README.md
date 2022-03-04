@@ -5,10 +5,12 @@ To  systematically  explore  the  functions  of  core  splicing  factors  and re
 # Clone this repository on your computer
 ## using CL:
 
-* git clone 
+* git clone https://github.com/estepi/SpliceNet
+
 ## Using RStudio:
 
-* 
+* File -> New project -> Version Control -> GiT -> Clone a project from Git repository
+
 
 
 # Main scripts
