@@ -90,7 +90,7 @@ Compute single correlation for a given dPSI table
 For a given input matrix, it extracts degree (and normalized degree) poe each KD in a given interval of correlations
 It can help to identify high/low stable factors.
 
-##  Replace NAs: Analyze NAs in VAST-TOOLS INCLUSION final Table: 
+#  Replace NAs: Analyze NAs in VAST-TOOLS INCLUSION final Table: 
 
 * We count how many NAs contain a quality score for every PSI value computed. If they have more than 3, we replace this PSI value with NAnew3. 
 * Input is the default vast-tools table (INCLUSION-...)
