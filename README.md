@@ -20,31 +20,26 @@ To  systematically  explore  the  functions  of  core  splicing  factors  and re
 # Main scripts
 
 Scripts associated to transcriptome-wide analysis of the effects of systematic knock down of splicing factors and regulators using siRNAs in HeLa cells.
-All scripts were written in R. 
+All scripts were written in R version >4.0
+
+## Prepare table: prepareEcentTypeTable.R
+* requiered library: MatrixGenerics
+
+* Input file: **dPSI_full_No_Nas.txt**, total events:
+
+PSI calculation was performed using VAST-TOOLS (jjjj9) version
+
+* Output is: only values dPSI, single (by row) and double (by row and column) scaled deltapsi values
 
 ## Network FDR computation
 
-Requiered libraries:
-* R version >4.0
-* parallel
-* Hmisc
-* ibble
-* tidyr
-* utils
-* dplyr
+Requiered libraries: parallel, Hmisc, ibble, tidyr, utils, dplyr
 
-## Prepare tables
-PSI calculation was performed using VAST-TOOLS (jjjj9) version...
-RAWDTA:
-
-## Scaling
-
-## Network FDR
-fdr_CL_cor.R (use by CL or interactively)
+* **fdr_CL_cor.R** (use by CL or interactively)
 
 This script computes Network FDR represented as the ratio betwenn TRUE links and RANDOM links. Input file is a matrix with EVENTS in rows and KDs (samples) in the column
 
-dPSI values can be none, single or double scaled (should be prepared in advance, see :...)
+dPSI values can be none, single or double scaled (should be prepared in advance, see *Prepare table section*)
 
 The function retunrs the total number of links which are below a given correlation value and are significant (corrected pvalue <0.1).
 Expected values are higher FDR at lower correlation values
