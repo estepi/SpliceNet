@@ -78,6 +78,8 @@ For our files (see files):
 * Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet -c 12  -f IR_all_sscaled.tab -n IRlong
 
 ## Single Cor
+* requiered libraries: optparse, utils, igraph, scales, Hmisc, tibble, tidyr, utils, dplyr
+
 * singlecor.R (use by CL or interactively)
 
 Compute single correlation for a given dPSI table
@@ -102,12 +104,15 @@ Compute single correlation for a given dPSI table
 -  Net-centrality_CL_cor.R (for command line)
 -  Net-centrality_interactive_cor.R (to run interactively)
 
+* Requiered libraries: 
+
 For a given input matrix, it extracts degree (and normalized degree) poe each KD in a given interval of correlations
 It can help to identify high/low stable factors.
 
 #  Replace NAs: Analyze NAs in VAST-TOOLS INCLUSION final Table: 
 
 * We count how many NAs contain a quality score for every PSI value computed. If they have more than 3, we replace this PSI value with NAnew3. 
+* Requiered libraries: 
 * Input is the default vast-tools table (INCLUSION-...)
 * Output: desired output, script 1: only replacing NAnew3
 
@@ -139,6 +144,7 @@ library(stringr)
 
 
 # generate_subset_from_GC_distribution.R
+* Requiered libraries: ggplot2, ggpubr
 
 ## Files needed:
 * **subsetFromGCDistribution.R**
