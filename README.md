@@ -138,9 +138,9 @@ library(stringr)
 - replaceNAI(INCFile, OUTFile2)
 
 
-## generate_subset_from_GC_distribution.R
+# generate_subset_from_GC_distribution.R
 
-Files needed:
+## Files needed:
 * **subsetFromGCDistribution.R**
 * Define: workingDir and  outputPath
 * **dPSI_EXONS.tab** (prepared with **prepareExonsTble.R**)
@@ -149,7 +149,8 @@ Files needed:
 * Prepare some variables and then run the function:
 subsetFromGCDistribution(dPSIFile = table,   all = exons_gc,  name, outputPath)
 
-* It will subset Q1 and Q3 Events according GC content, some distribution plots and a table with exon's GC content by gene
+## Output
+It will subset Q1 and Q3 Events according GC content, some distribution plots and a table with exon's GC content by gene
 
 
 
