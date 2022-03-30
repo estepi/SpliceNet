@@ -65,8 +65,22 @@ We add an extra layer of filtering discarding thos IR events with *unbalanced* c
 - standard deviation of controls was lower than 5 (?)
 - delta PSI was greater than 25 (?)
 
-### Total initial input:
-   46360 links (*(305*305)-305*))
+### Total initial input (dPSI_full_No_Nas.txt): 
+* 82795 events well mapped
+* Filter by RANGE > 5, total: 41870
+ - **Alt3**: 6093
+ - **Alt5**: 3676
+ - **Exons**: 16721 
+        *  **ANN**: 1088
+	*  **C1**: 1513
+	*  **C2**: 1359
+	*  **C3**: 1772
+	*  **MIC**: 72
+	*  **S**: 10917 
+ - **IR**:  15380
+ 
+ 
+ * Total expected links: 46360 (*(305*305)-305*))
  
 ## AS Cross Regulatory Network: Corss_edges.csv
  From AS profile table, we only consider events which belong to Knock Down genes and  dpSI > 25. **CHECK GOSIA** 
