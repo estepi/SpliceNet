@@ -113,6 +113,10 @@ For each dataset (event type, ES, IR, A5, A3) we computed Network FDR and  Pears
 - singlecor.R -m 0 -f ES_all_sscaled.tab  -p 1 -n ES -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
 - singlecor.R -m 0 -f IR_all_sscaled.tab  -p 1 -n IR -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
 
+### 
+use values form F scores (GOSIA will wrtie and exlain)
+0.28 for general + 
+
 ### CLASS COLORS class_colors.txt
 Factors were classified into  Family Class according XX
 (Assembbly) Order was defined according
