@@ -1,6 +1,6 @@
 library(MatrixGenerics)
 ###########################################
-dPSI_full = read.delim("~/Dropbox (CRG)/LAB_VALCARCEL/Network/tables/dPSI_full_No_Nas.txt",
+dPSI_full = read.delim("../SpliceNetData//dPSI_full_No_Nas.txt",
                        dec = ",")
 dim(dPSI_full)
 
@@ -37,7 +37,7 @@ dim(dPSI_full_chaging)
 #original table is names according to Gene.Symbol
 class <-
   read.delim(
-    "~/Dropbox (CRG ADV)/Personal_Estefania/Network/summaryLinks/edgelist/class_colors_2020.txt",
+    "../SpliceNetData//class_colors_2020.txt",
     header = T
   )
 #so for the network I rename nodes later according to class table!!!
@@ -57,17 +57,16 @@ iis[is.na(iis)]
 colnames(dPSI) <- class$gene.name.VT[iis]
 colnames(dPSI)
 ##########################################
-#subset to 34500
+#subset to 3500
 subset<-dPSI[sample(1:nrow(dPSI), 3500,replace = FALSE),]
 ##########################################
+setwd("../SpliceNetData/")
+##########################################
+#sdPSI
+write.table(round(subset, digits = 2), "A3_dPSI_subset3500.tab",  sep = "\t")
 #single scaled
 deltascaled <- scale(subset)# scaled by columns (KDs)
-#double scaled
-dsscaled <- t(scale(t(deltascaled)))    #scaled by events
-####################################################
-setwd("~/Dropbox (CRG ADV)/Personal_Estefania/Network/standard/diffRho/subset3500/")
-#single scaled
 write.table(deltascaled, "A3_subset3500_sscaled.tab",  sep = "\t")
 #double scaled
+dsscaled <- t(scale(t(deltascaled)))    #scaled by events
 write.table(dsscaled, "A3_subset3500_dscaled.tab",  sep = "\t")
-####################################################

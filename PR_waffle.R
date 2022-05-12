@@ -5,7 +5,7 @@ library(pheatmap)
 library(plyr)
 library(reshape) 
 ##################################################################
-setwd("~/Documents/SpliceNetRes/subset3500/cor03/")
+setwd("~/Documents/SpliceNetRes/GC/networks/cor03/")
 rankings<-read.table("centrality.txt", header = F, stringsAsFactors = F ,sep="\t")
 rankings
 sampleClass<-read.csv("~/Documents/summaryLinks/class_colors.tab", sep="\t", header = T)
@@ -49,7 +49,6 @@ head(sampleClass)
          
 #####################################
 head(allNodesDF)
-
 forPlot<-allNodesDF
                   #paso a 0s y 1s
                   rownames(allNodesDF)                  

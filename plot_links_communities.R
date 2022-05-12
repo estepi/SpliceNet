@@ -1,47 +1,48 @@
 ###############################################
 library(igraph)
 ###############################################
-folder<-"~/Dropbox (CRG ADV)//Personal_Estefania/SpliceNetRes/subset3500/cor03/"
+folder<-"~/Documents/SpliceNetRes/GC/networks/cor03/"
 setwd(folder)
 dir()
-class<-read.delim("~/Dropbox (CRG ADV)//Personal_Estefania/Network/standard/diffRho/plot/class_colors_2020.txt", header = T)
+class<-read.delim("~/Documents/SpliceNetData/data/class_colors_2020.txt", header = T)
 head(class)
 
 #############################################
-ES<-read.table("ES_edgelist.tab", header = T); head(ES); dim(ES)#1050
-IR<-read.table("IR_edgelist.tab", header = T); head(IR); dim(IR)#2212
-A5<-read.table("A5_edgelist.tab", header = T); head(A5); dim(A5)#583
-A3<-read.table("A3_edgelist.tab", header = T); head(A3); dim(A3)#783
-###########################
-g1 <- graph_from_data_frame(A3[,7:8], directed = FALSE)
+Q1<-read.table("Q1_edgelist.tab", header = T); head(Q1); dim(Q1)#453
+Q1top<-Q1[Q1$absCor>0.4,]
+dim(Q1top)#160
+
+g1 <- graph_from_data_frame(Q1top[,7:8], directed = FALSE)
+onlyG1<-difference(g1,g3)
+onlyG1
 #g1
-length(E(g1))#
-length(V(g1))#
+length(E(onlyG1))#
+length(V(onlyG1))#
 
-layg1<-layout.fruchterman.reingold(g1)
-rownames(layg1)<-V(g1)$name
+layg1<-layout.fruchterman.reingold(onlyG1)
+rownames(layg1)<-V(onlyG1)$name
 
-cfg <- cluster_fast_greedy(g1,
+cfg <- cluster_fast_greedy(onlyG1,
                            modularity = TRUE,
-                           weights = E(g1)$weight)
+                           weights = E(onlyG1)$weight)
 
-clp <- cluster_label_prop(g1, weights = E(g1)$weight)
+clp <- cluster_label_prop(onlyG1, weights = E(onlyG1)$weight)
 
 colorColsLinks<-rep("lightsalmon", length(table(cfg$membership)))
 colorColsLinks<-rep(NULL, length(table(cfg$membership)))
 ###classify links by communities
 ###############################################################
-ii <- match(names(V(g1)), class$gene.name.VT)
-V(g1)$label_color = class$color[ii]
-V(g1)$label_color[is.na(V(g1)$label_color)] <- "grey"
+ii <- match(names(V(onlyG1)), class$gene.name.VT)
+V(onlyG1)$label_color = class$color[ii]
+V(onlyG1)$label_color[is.na(V(onlyG1)$label_color)] <- "grey"
 ###############################################################
-dset = "A3_3500"
+dset = "onlyG1"
 pdfile <- paste(dset, "network.pdf", sep = "_")
 
 pdf(pdfile, width = 12,  height = 12)
 plot(
     cfg,
-    g1,
+    onlyG1,
     layout=layg1, 
     vertex.size = 4,
     edge.width = 1,
@@ -52,7 +53,54 @@ plot(
     main = dset,
     mark.col = colorColsLinks[-1],
     mark.border = colorColsLinks[-1],
-    col = V(g1)$label_color)
+    col = V(onlyG1)$label_color)
+dev.off()
+getwd()
+##########################################33
+Q3<-read.table("Q3_edgelist.tab", header = T); head(Q3); dim(Q3)#453
+Q3top<-Q3[Q3$absCor>0.4,]
+dim(Q3top)#481
+###########################
+g3 <- graph_from_data_frame(Q3top[,7:8], directed = FALSE)
+onlyG3<-difference(g3,g1)
+length(E(onlyG3))#
+length(V(onlyG3))#
+
+layg3<-layout.fruchterman.reingold(onlyG3)
+rownames(layg3)<-V(onlyG3)$name
+
+cfg <- cluster_fast_greedy(onlyG3,
+                           modularity = TRUE,
+                           weights = E(onlyG3)$weight)
+
+clp <- cluster_label_prop(g3, weights = E(onlyG3)$weight)
+
+colorColsLinks<-rep("lightsalmon", length(table(cfg$membership)))
+colorColsLinks<-rep(NULL, length(table(cfg$membership)))
+###############################################################
+ii <- match(names(V(onlyG3)), class$gene.name.VT)
+V(onlyG3)$label_color = class$color[ii]
+V(onlyG3)$label_color[is.na(V(onlyG3)$label_color)] <- "grey"
+###############################################################
+dset = "onlyG3"
+pdfile <- paste(dset, "network.pdf", sep = "_")
+
+pdf(pdfile, width = 12,  height = 12)
+plot(
+    cfg,
+    onlyG3,
+    layout=layg3, 
+    vertex.size = 4,
+    edge.width = 1,
+    edge.color = "grey",
+    vertex.label.cex = 1,
+    vertex.label.color = "black",
+    vertex.label.dist = 0.8,
+    main = dset,
+    mark.col = colorColsLinks[-1],
+    mark.border = colorColsLinks[-1],
+    col = V(onlyG3)$label_color)
 dev.off()
 
-####################################################################
+
+getwd()

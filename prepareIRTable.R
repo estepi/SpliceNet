@@ -1,6 +1,6 @@
 library(MatrixGenerics)
 ###########################################
-dPSI_full = read.delim("~/Dropbox (CRG)/LAB_VALCARCEL/Network/tables/dPSI_full_No_Nas.txt",
+dPSI_full = read.delim("../SpliceNetData//dPSI_full_No_Nas.txt",
                        dec = ",")
 dim(dPSI_full)
 
@@ -33,7 +33,7 @@ colnames(dPSI_full_chaging)
 #original table is names according to Gene.Symbol
 class <-
   read.delim(
-    "~/Dropbox (CRG ADV)/Personal_Estefania/Network/summaryLinks/edgelist/class_colors_2020.txt",
+    "../SpliceNetData//class_colors_2020.txt",
     header = T
   )
 #so for the network I rename nodes later according to class table!!!
@@ -47,19 +47,21 @@ dim(dPSI)#305
 iis <- match(colnames(dPSI), class$Gene.Symbol)
 iis[is.na(iis)]
 colnames(dPSI) <- class$gene.name.VT[iis]
-colnames(dPSI)
-
 dim(dPSI)
 colnames(dPSI)
 ##########################################
-deltascaled <- scale(dPSI)# scaled by columns (KDs)
-dsscaled <- t(scale(t(deltascaled)))    #scaled by events
-#double scaled
+setwd("../SpliceNetData/")
+##########################################
+#sdPSI
+write.table(round(dPSI, digits = 2), "IR_dPSI.tab",  sep = "\t")
+##########################################
 #single scaled
-####################################################
-setwd("~/Dropbox (CRG ADV)/Personal_Estefania/Network/standard/diffRho/")
-write.table(dsscaled, "IR_all_dscaled.tab",  sep = "\t")
+deltascaled <- scale(dPSI)# scaled by columns (KDs)
 write.table(deltascaled, "IR_all_sscaled.tab",  sep = "\t")
+####################################################
+#double scaled
+dsscaled <- t(scale(t(deltascaled)))    #scaled by events
+write.table(dsscaled, "IR_all_dscaled.tab",  sep = "\t")
 ####################################################
 
 
