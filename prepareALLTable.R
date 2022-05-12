@@ -28,11 +28,10 @@ colnames(dPSI_full_chaging)[colnames(dPSI_full_chaging) == "CCDC12_b"] <-
 colnames(dPSI_full_chaging)[colnames(dPSI_full_chaging) == "CDC5L_b"] <-
   "CDC5L"
 dim(dPSI_full_chaging)
-colnames(dPSI_full_chaging)
 #original table is names according to Gene.Symbol
 class <-
   read.delim(
-    "~/SpliceNetData/class_colors_2020.txt",
+    "../SpliceNetData/class_colors_2020.txt",
     header = T
   )
 #so for the network I rename nodes later according to class table!!!
@@ -41,7 +40,6 @@ dPSI <- dPSI[, 18:ncol(dPSI)]
 dPSI$RANGE <- NULL
 dPSI$Sds <- NULL
 iis <- match(colnames(dPSI), class$Gene.Symbol)
-colnames(dPSI) <- class$gene.name.VT[iis]
 ##########################################
 setwd("../SpliceNetData/")
 write.table(round(dPSI, digits = 2), "dPSI_all.tab",  sep = "\t")
