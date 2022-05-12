@@ -127,11 +127,12 @@ For each dataset (event type, ES, IR, A5, A3) we computed Network FDR and  Pears
      - IR_all_sscaled.tab: 15381 events 
      
 * Script parameter	
+(supose your wd is SpliceNetData)
 
-- singlecor.R -m 0 -f A3_all_sscaled.tab  -p  1 -n A3 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
-- singlecor.R -m 0 -f A5_all_sscaled.tab  -p 1 -n A5 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
-- singlecor.R -m 0 -f ES_all_sscaled.tab  -p 1 -n ES -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
-- singlecor.R -m 0 -f IR_all_sscaled.tab  -p 1 -n IR -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
+- ../SpliceNet/singlecor.R -m 0 -f A3_all_sscaled.tab  -p  1 -n A3 -b ../SpliceNet
+- ../SpliceNet/singlecor.R -m 0 -f A5_all_sscaled.tab  -p 1 -n A5 -b ../SpliceNet
+- ../SpliceNet/singlecor.R -m 0 -f ES_all_sscaled.tab  -p 1 -n ES -b ../SpliceNet
+- ../SpliceNet/singlecor.R -m 0 -f IR_all_sscaled.tab  -p 1 -n IR -b ../SpliceNet
 
 ### 
 use values form F scores (GOSIA will wrtie and exlain)
