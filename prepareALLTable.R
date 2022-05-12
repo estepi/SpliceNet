@@ -1,6 +1,6 @@
 library(MatrixGenerics)
 ###########################################
-dPSI_full = read.delim("~/Documents/SpliceNetData/data/dPSI_full_No_Nas.txt",
+dPSI_full = read.delim("../SpliceNetData//dPSI_full_No_Nas.txt",
                        dec = ",")
 dim(dPSI_full)
 
@@ -14,7 +14,6 @@ dPSI_full = cbind(dPSI_full, Sds = Sds)
 dPSI_full_chaging = dPSI_full[dPSI_full$RANGE > 5, ]
 dim(dPSI_full_chaging) #41870   324
 table(dPSI_full_chaging$COMPLEX)
-
 #Alt3  Alt5   ANN    C1    C2    C3    IR   MIC     S 
 #6093  3676  1088  1513  1359  1772 15380    72 10917 
 
@@ -33,7 +32,7 @@ colnames(dPSI_full_chaging)
 #original table is names according to Gene.Symbol
 class <-
   read.delim(
-    "~/Documents/SpliceNetData/data//class_colors_2020.txt",
+    "~/SpliceNetData/class_colors_2020.txt",
     header = T
   )
 #so for the network I rename nodes later according to class table!!!
@@ -48,22 +47,15 @@ iis <- match(colnames(dPSI), class$Gene.Symbol)
 iis[is.na(iis)]
 colnames(dPSI) <- class$gene.name.VT[iis]
 ##########################################
-dPSI_print<-cbind(dPSI,
-                  AVcontrols=dPSI_full_chaging$AVcontrols)
-
-
-deltascaled <- scale(dPSI)# scaled by columns (KDs)
-
-dsscaled <- t(scale(t(deltascaled)))    #scaled by events
-#double scaled
+setwd("../SpliceNetData/")
+write.table(round(dPSI, digits = 2), "dPSI_all.tab",  sep = "\t")
+##########################################
 #single scaled
-####################################################
-setwd("~/Documents/SpliceNetData/data/")
-dim(dPSI_print)
-
-write.table(dPSI_print, "dPSI_all.tab",  sep = "\t")
-write.table(dsscaled, "all_dscaled.tab",  sep = "\t")
+deltascaled <- scale(dPSI)# scaled by columns (KDs)
 write.table(deltascaled, "all_sscaled.tab",  sep = "\t")
+#double scaled
+dsscaled <- t(scale(t(deltascaled)))    #scaled by events
+write.table(dsscaled, "all_dscaled.tab",  sep = "\t")
 ####################################################
 
 
