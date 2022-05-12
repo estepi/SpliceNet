@@ -22,14 +22,18 @@ To  systematically  explore  the  functions  of  core  splicing  factors  and re
 Scripts associated to transcriptome-wide analysis of the effects of systematic knock down of splicing factors and regulators using siRNAs in HeLa cells.
 All scripts were written in R version >4.0
 
-## Prepare table: prepareEcentTypeTable.R
+## Prepare table: prepareEVENTTable.R
 * requiered library: MatrixGenerics
 
-* Input file: **dPSI_full_No_Nas.txt**, total events:
+* Input file: **dPSI_full_No_Nas.txt** and **class_colors2020.txt**:
+*
+*  See files.md for more details
 
-PSI calculation was performed using VAST-TOOLS (jjjj9) version
+* PSI calculation was performed using VAST-TOOLS (jjjj9) version
 
-* Output is: only values dPSI, single (by row) and double (by row and column) scaled deltapsi values
+* Outputs: 
+*   dPSI values,
+*   single (by columns, KDs) and double (by row and column) scaled deltapsi values
 
 ## Network FDR computation
 
