@@ -79,12 +79,12 @@ We add an extra layer of filtering discarding thos IR events with *unbalanced* c
 
 - **Exons**: 16721
 
-*  **ANN**: 1088
-*  **C1**: 1513
-*  **C2**: 1359
-*  **C3**: 1772
-*  **MIC**: 72
-*  **S**: 10917 
+	*  **ANN**: 1088
+	*  **C1**: 1513
+	*  **C2**: 1359
+	*  **C3**: 1772
+	*  **MIC**: 72
+	*  **S**: 10917 
 	
  - **IR**:  15380
 
