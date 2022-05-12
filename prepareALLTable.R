@@ -36,15 +36,11 @@ class <-
     header = T
   )
 #so for the network I rename nodes later according to class table!!!
-colnames(dPSI_full_chaging)[!colnames(dPSI_full_chaging) %in% class$Gene.Symbol]
 dPSI <- dPSI_full_chaging
 dPSI <- dPSI[, 18:ncol(dPSI)]
 dPSI$RANGE <- NULL
 dPSI$Sds <- NULL
-colnames(dPSI)[!colnames(dPSI) %in% class$Gene.Symbol]
-dim(dPSI)#305
 iis <- match(colnames(dPSI), class$Gene.Symbol)
-iis[is.na(iis)]
 colnames(dPSI) <- class$gene.name.VT[iis]
 ##########################################
 setwd("../SpliceNetData/")

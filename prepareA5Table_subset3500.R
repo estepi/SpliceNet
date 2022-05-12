@@ -3,7 +3,6 @@ library(MatrixGenerics)
 dPSI_full = read.delim("../SpliceNetData//dPSI_full_No_Nas.txt",
                        dec = ",")
 dim(dPSI_full)
-
 table(dPSI_full$COMPLEX)
 dPSI_full_alt5 = dPSI_full[dPSI_full$COMPLEX %in% "Alt5", ]
 dim(dPSI_full_alt5)
@@ -29,7 +28,6 @@ colnames(dPSI_full_chaging)[colnames(dPSI_full_chaging) == "CCDC12_b"] <-
 colnames(dPSI_full_chaging)[colnames(dPSI_full_chaging) == "CDC5L_b"] <-
   "CDC5L"
 dim(dPSI_full_chaging)
-colnames(dPSI_full_chaging)
 #original table is names according to Gene.Symbol
 class <-
   read.delim(
@@ -37,19 +35,12 @@ class <-
     header = T
   )
 #so for the network I rename nodes later according to class table!!!
-colnames(dPSI_full_chaging)[!colnames(dPSI_full_chaging) %in% class$Gene.Symbol]
 dPSI <- dPSI_full_chaging
 dPSI <- dPSI[, 18:ncol(dPSI)]
 dPSI$RANGE <- NULL
 dPSI$Sds <- NULL
-colnames(dPSI)[!colnames(dPSI) %in% class$Gene.Symbol]
-dim(dPSI)#305
 iis <- match(colnames(dPSI), class$Gene.Symbol)
-iis[is.na(iis)]
 colnames(dPSI) <- class$gene.name.VT[iis]
-colnames(dPSI)
-dim(dPSI)
-colnames(dPSI)
 ##########################################
 #subset to 3500
 subset<-dPSI[sample(1:nrow(dPSI), 3500,replace = FALSE),]

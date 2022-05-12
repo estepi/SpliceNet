@@ -3,10 +3,8 @@ library(MatrixGenerics)
 dPSI_full = read.delim("../SpliceNetData//dPSI_full_No_Nas.txt",
                        dec = ",")
 dim(dPSI_full)
-
 table(dPSI_full$COMPLEX)
 dPSI_full_alt3 = dPSI_full[dPSI_full$COMPLEX %in% "Alt3", ]
-dim(dPSI_full_alt3)
 
 dPSI_full_alt3[grep("1/1", rownames(dPSI_full_alt3)),]
 mEv<-matrix(unlist(strsplit(rownames(dPSI_full_alt3), "-")), ncol=2, byrow = T)
@@ -41,23 +39,13 @@ class <-
     header = T
   )
 #so for the network I rename nodes later according to class table!!!
-colnames(dPSI_full_chaging)[!colnames(dPSI_full_chaging) %in% class$Gene.Symbol]
 dPSI <- dPSI_full_chaging
 ############################################
-colnames(dPSI)
-summary(dPSI$LENGTH)
-############################################s
 dPSI <- dPSI[, 18:ncol(dPSI)]
 dPSI$RANGE <- NULL
 dPSI$Sds <- NULL
-colnames(dPSI)[!colnames(dPSI) %in% class$Gene.Symbol]
-dim(dPSI)#305
 iis <- match(colnames(dPSI), class$Gene.Symbol)
-iis[is.na(iis)]
 colnames(dPSI) <- class$gene.name.VT[iis]
-colnames(dPSI)
-dim(dPSI)
-colnames(dPSI)
 ##########################################
 setwd("../SpliceNetData/")
 ##########################################
@@ -67,7 +55,6 @@ write.table(round(dPSI, digits = 2), "A3_dPSI.tab",  sep = "\t")
 #single scaled
 deltascaled <- scale(dPSI)# scaled by columns (KDs)
 write.table(deltascaled, "A3_all_sscaled.tab",  sep = "\t")
-dim(deltascaled)
 #double scaled
 dsscaled <- t(scale(t(deltascaled)))    #scaled by events
 deltascaled[1:5,300:305]
