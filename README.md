@@ -25,6 +25,12 @@ All scripts were written in R version >4.0
 ## Prepare table: prepareEVENTTable.R
 * requiered library: MatrixGenerics
 
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("MatrixGenerics")
+
+
 * Input file: **dPSI_full_No_Nas.txt** and **class_colors2020.txt**:
 *
 *  See files.md for more details
