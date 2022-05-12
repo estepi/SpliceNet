@@ -78,7 +78,6 @@ We add an extra layer of filtering discarding thos IR events with *unbalanced* c
 - **Alt5**: 3676
 
 - **Exons**: 16721
-  
         *  **ANN**: 1088
 	*  **C1**: 1513
 	*  **C2**: 1359
