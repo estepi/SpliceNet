@@ -57,6 +57,5 @@ deltascaled <- scale(dPSI)# scaled by columns (KDs)
 write.table(deltascaled, "A3_all_sscaled.tab",  sep = "\t")
 #double scaled
 dsscaled <- t(scale(t(deltascaled)))    #scaled by events
-deltascaled[1:5,300:305]
 write.table(dsscaled, "A3_all_dscaled.tab",  sep = "\t")
 ####################################################
