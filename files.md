@@ -88,7 +88,8 @@ We add an extra layer of filtering discarding thos IR events with *unbalanced* c
 	
  - **IR**:  15380
 
-## Prepare dPSI, sscaled and dscaled files for main types of EVENTS: ES, A5, A3 and IR
+
+## Prepare dPSI, sscaled and dscaled files for main types of EVENTS: all, ES, A5, A3 and IR
 
 - Scripts are: **prepareEVENTtable.R**
 
