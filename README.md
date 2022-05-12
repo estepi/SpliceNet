@@ -20,7 +20,11 @@ To  systematically  explore  the  functions  of  core  splicing  factors  and re
 # Main scripts
 
 Scripts associated to transcriptome-wide analysis of the effects of systematic knock down of splicing factors and regulators using siRNAs in HeLa cells.
-All scripts were written in R version >4.0
+
+* All scripts were written in R version >4.0
+
+* To see how to run on ISIS, you can check this **example.sh**
+
 
 ## Prepare table: prepareEVENTTable.R
 * requiered library: MatrixGenerics
@@ -75,12 +79,13 @@ The function returns a table and their corresponding plots for the number of lin
 FDR is computed as Number of Links RANDOM data / Number of links in REAL data * 100
 
 
-For our files (see files):
+For our files (see **files.md**):
 
-* Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet -c 12     -f  A3_all_sscaled.tab -n A3long
-* Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet -c 12  -f A5_all_sscaled.tab -n A5long
-* Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet -c 12  -f ES_all_sscaled.tab -n ESlong
-* Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet -c 12  -f IR_all_sscaled.tab -n IRlong
+* ../SpliceNet/Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b ../SpliceNet/ -c 12 -f  A3_all_sscaled.tab -n A3long
+* ../SpliceNet/Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b ../SpliceNet/ -c 12  -f A5_all_sscaled.tab -n A5long
+* ../SpliceNet/Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b ../SpliceNet/ -c 12  -f ES_all_sscaled.tab -n ESlong
+* ../SpliceNet/Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b ../SpliceNet/ -c 12  -f IR_all_sscaled.tab -n IRlong
+
 
 ## Single Cor
 * requiered libraries: optparse, utils, igraph, scales, Hmisc, tibble, tidyr, utils, dplyr
