@@ -44,6 +44,10 @@ Gene count tables were prepared using STAR option --quantMode GeneCounts. It inc
 
 * Alignments were quality checked with QUALIMAP. 
 
+### CLASS COLORS class_colors_2020.txt
+* Factors were classified into  Family Class according XX
+* (Assembbly) Order was defined according
+
 
 ### GE profiles: Gene_logFC_GW*.tab
 
@@ -68,20 +72,34 @@ We add an extra layer of filtering discarding thos IR events with *unbalanced* c
 ### Total initial input (dPSI_full_No_Nas.txt): 
 * 82795 events well mapped
 * Filter by RANGE > 5, total: 41870
+
  - **Alt3**: 6093
- - **Alt5**: 3676
- - **Exons**: 16721 
+
+- **Alt5**: 3676
+
+- **Exons**: 16721
+  
         *  **ANN**: 1088
 	*  **C1**: 1513
 	*  **C2**: 1359
 	*  **C3**: 1772
 	*  **MIC**: 72
 	*  **S**: 10917 
+	
  - **IR**:  15380
- 
- 
- * Total expected links: 46360 (*(305*305)-305*))
- 
+
+## Prepare dPSI, sscaled and dscaled files for main types of EVENTS: ES, A5, A3 and IR
+
+- Scripts are: **prepareEVENTtable.R**
+
+Using /SpliceNetData//class_colors_2020.txt and XXX under SpliceNetData/ folder, yo can get 3 files from each event type:
+
+* EVENT_dPSI.tab
+* EVENT_all_sscaled.tab (data scaled by columns)
+* EVENT_all_dscaled.tab (data double scaled)
+
+
+
 ## AS Cross Regulatory Network: Corss_edges.csv
  From AS profile table, we only consider events which belong to Knock Down genes and  dpSI > 25. **CHECK GOSIA** 
  
@@ -98,6 +116,8 @@ We add an extra layer of filtering discarding thos IR events with *unbalanced* c
 
 In order to decipher functional relationships between splicing factors, we computed Pearson pairwise correlations
 For each dataset (event type, ES, IR, A5, A3) we computed Network FDR and  Pearson correlation and corresponding pvalue for each pair. We report all possible correlations
+
+ * Total expected links: 46360 (*(305*305)-305*))
 
 * Input:
 
@@ -117,6 +137,3 @@ For each dataset (event type, ES, IR, A5, A3) we computed Network FDR and  Pears
 use values form F scores (GOSIA will wrtie and exlain)
 0.28 for general + 
 
-### CLASS COLORS class_colors.txt
-Factors were classified into  Family Class according XX
-(Assembbly) Order was defined according
