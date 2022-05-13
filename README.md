@@ -107,10 +107,7 @@ Compute single correlation for a given dPSI table
 
 * For our files:
 
-* singlecor.R -m 0 -f A3_all_sscaled.tab  -p  1 -n A3 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
-* singlecor.R -m 0 -f A5_all_sscaled.tab  -p 1 -n A5 -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
-* singlecor.R -m 0 -f ES_all_sscaled.tab  -p 1 -n ES -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
-* singlecor.R -m 0 -f IR_all_sscaled.tab  -p 1 -n IR -b /no_backup/jvalcarcel/emancini/SpliceNet/SpliceNet
+* R CMD Rscript  ../SpliceNet/singlecor.R -m 0 -f all_sscaled.tab  -p  1 -n all -b ../SpliceNet
 
 # Extract centrality
 -  Net-centrality_CL_cor.R (for command line)
