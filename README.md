@@ -47,9 +47,9 @@ BiocManager::install("MatrixGenerics")
 
 ## Network FDR computation
 
-Requiered libraries: parallel, Hmisc, ibble, tidyr, utils, dplyr
+Requiered libraries: optparse, parallel, Hmisc, tibble, tidyr, utils, dplyr
 
-* **fdr_CL_cor.R** (use by CL or interactively)
+* **Net_fdr_CL_cor.R** (use by CL or interactively)
 
 This script computes Network FDR represented as the ratio betwenn TRUE links and RANDOM links. Input file is a matrix with EVENTS in rows and KDs (samples) in the column
 
@@ -72,7 +72,9 @@ As noiser is the data, more random links will be find, higher FDR
 - -f sscaled.tab (file: input file, should be prepared in advance. It contains only dPSI values, scaled or not  ex: sscaled.tab) 
 - -n A3short (name: prefix to use for output files, ej: A3short)
 
-Usage using CL: Rscript Net-fdr_CL_cor.R -f sscaled.tab  -s 0.1 -e 0.2 -i 0.05  -r 5 -n short -b ../SpliceNet 
+Usage using CL: 
+$R CMD Rscript ../SpliceNet/Net-fdr_CL_cor.R -f all_sscaled.tab -s 0.1 -e 0.2 -i 0.05 -r 5 -n short -b ../SpliceNet
+
 
 * Output:
 The function returns a table and their corresponding plots for the number of links for real and random data in the interval of correlations
