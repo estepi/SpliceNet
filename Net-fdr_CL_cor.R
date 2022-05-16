@@ -84,9 +84,10 @@ end<-opt$end
 interval<-opt$interval
 ncores <-opt$cores
 fdr<-0.01
+scripts<-opt$bin
 ##############################################
 #to run interactively, uncomment following lines:
-#t_Zvals<-read.table("/home/estepi/Documents/SpliceNetData/input/ES_subset3500_sscaled.tab")
+#t_Zvals<-read.table("sscaled.tab")
 #sampleData <- as.matrix(t_Zvals)
 #name<-"ES"
 #start<- 0.1
@@ -96,8 +97,8 @@ fdr<-0.01
 #fdr<-0.01
 #NumRandomM<-5
 #fdr<-0.01
+#scripts<-""
 ##############################################
-scripts<-"/home/estepi/Documents/SpliceNet"
 sc3<-paste(scripts, "functions_fdr_MC_cor.R", sep="/")
 source(sc3)
 

@@ -67,18 +67,18 @@ scripts<-opt$bin
 sampleData<-read.table(opt$file, sep="\t", header=T) 
 #####################################################################
 # to run interactively
-t_Zvals<-read.table("/home/estepi/Documents/SpliceNetRes/GC/EXONS_Q1_GC_dPSI_dscaled.tab")
-sampleData <- as.matrix(t_Zvals)
-sampleClass<-read.csv("class_colors.tab", sep="\t", header = T)
-name<-"Q1"
-minCor=0.3
-fdr=0.1
-scripts<-"~/Documents/SpliceNet"
+#t_Zvals<-read.table("sscaled.tab")
+#sampleData <- as.matrix(t_Zvals)
+#sampleClass<-read.csv("class_colors.tab", sep="\t", header = T)
+#name<-"Q1"
+#minCor=0.3
+#fdr=0.1
+#scripts<-"~/Documents/SpliceNet"
 #####################################################################
 sc3<-paste(scripts, "functions_fdr_MC_cor.R", sep="/")
 source(sc3)
 M <- as.matrix(sampleData)
-corM <- getCorM(M, min=0.3, fdr=0.05)
+corM <- getCorM(M, min=minCor, fdr=fdr)
 head(corM)
 write.table(
   corM,
@@ -87,4 +87,4 @@ write.table(
   quote = F
 )
 #####################################################################
-getwd()
+
