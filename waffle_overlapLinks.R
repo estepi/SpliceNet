@@ -5,18 +5,26 @@ library(pheatmap)
 library(plyr)
 library(reshape) 
 ##################################################################
-setwd("~/Documents/SpliceNetRes/GC/networks/cor03/")
-sampleClass<-read.csv("~/Documents/summaryLinks/class_colors.tab", sep="\t", header = T)
+setwd("SpliceNetData")
+sampleClass <- read.csv("class_colors2020.tab", sep = "\t", header = T)
 head(sampleClass)
 ##############################
-edgelists<-read.table("edgelists.txt", header = F, stringsAsFactors = F ,sep="\t")##################################################################
-edgelist<-read.table(edgelists$V1[1]);
+edgelists <-
+  read.table(
+    "edgelists.txt",
+    header = F,
+    stringsAsFactors = F ,
+    sep = "\t"
+  )
+##################################################################
+edgelist <- read.table(edgelists$V1[1])
+
 head(edgelist)
-finalDF<-data.frame()
+finalDF <- data.frame()
 dim(edgelists)#2
-linksList<-list()
-linkListNames<-list()
-                
+linksList <- list()
+linkListNames <- list()
+
 for (i in 1:nrow(edgelists))
 {
   file <- edgelists$V1[i]
@@ -34,27 +42,20 @@ for (i in 1:nrow(edgelists))
   names(linkListNames)[[i]] <- name
 }
 
-linksList
-head(finalDF)
 #total Degree: suma degree / 2
 allLinks <-   unique(unlist(linkListNames))
-head(allLinks)
-length(allLinks)#2794
 allLinksDF <-
-data.frame(matrix(0, 
+  data.frame(matrix(0,
                     ncol = length(linksList),
-                    nrow = length(allLinks)), 
-                    row.names = allLinks)
-head(allLinksDF)
-dim(allLinksDF)#2794
+                    nrow = length(allLinks)),
+             row.names = allLinks)
 
 for (i in 1:length(linksList))
 {
   names(linksList[[i]])
   rownames(allLinksDF)
   
-  ii <- match(
-  names(linksList[[i]]), rownames(allLinksDF)    )
+  ii <- match(names(linksList[[i]]), rownames(allLinksDF))
   
   colnames(allLinksDF)[i] <- names(linksList)[i]
   allLinksDF[ii, i] <-  linksList[[i]]
@@ -62,29 +63,21 @@ for (i in 1:length(linksList))
 }
 #####################################
 #remove NAs
-forPlot<-allLinksDF
-freq<-rowSums(allLinksDF>0)
-table(freq)
-top<-names(freq)[freq==2]
-length(top)#330
-forPlot<-allLinksDF[top,]
-dim(forPlot)
-head(forPlot)
-MeanCor<-rowMeans(forPlot)
-head(MeanCor)
+forPlot <- allLinksDF
+freq <- rowSums(allLinksDF > 0)
+top <- names(freq)[freq == 2]
+forPlot <- allLinksDF[top, ]
+MeanCor <- rowMeans(forPlot)
 #paso a 0s y 1s
 forPlot$link <- rownames(forPlot)
-head(forPlot)
-
 
 forPlotMelt <-
   melt(forPlot, variable_name = "link")
 colnames(forPlotMelt)[2] <- "network"
 ##################################################################
-mm<-match(forPlotMelt$link, names(MeanCor))
-forPlotMelt$order<-MeanCor[mm]
-filter<-forPlotMelt
-head(filter)
+mm <- match(forPlotMelt$link, names(MeanCor))
+forPlotMelt$order <- MeanCor[mm]
+filter <- forPlotMelt
 #################################################
 pdf("SummaryPR_noLegend_freq.pdf",
     width = 1,
@@ -97,16 +90,13 @@ ggplot(data = filter) +
     alpha = value
   )) +
   theme_classic() +
-  scale_fill_manual(values = "red") + 
+  scale_fill_manual(values = "red") +
   scale_alpha_identity() +
-  theme(axis.text.x = element_text(
-    angle = 90,
-    #hjust = 400,
-    size = 10
-  )) +
+  theme(axis.text.x = element_text(angle = 90,
+                                   #hjust = 400,
+                                   size = 10)) +
   scale_x_discrete(position = "top") +
   theme(axis.text.y = element_text(size = 2)) +
   theme(legend.position = "none")
 dev.off()
-
 #####################################################

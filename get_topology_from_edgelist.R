@@ -26,7 +26,7 @@ NetworkDesc <- function(g, name)
               sep = "\t")
 }
 #####################################################################
-setwd("SpliceNetRes/GC/networks/cor03/")
+setwd("SpliceNetRes/GC/networks/")
 
 file.names <- dir(path = ".", pattern = "\\_edgelist.tab")
 file.names
@@ -41,7 +41,6 @@ for (i in 1:length(file.names))
   
   NetworkDesc(g, name)
 }
-
 
 
       

@@ -1,7 +1,7 @@
 ##############################################################
 library(parallel)##multicores
 library(Hmisc)# correlation matrix
-library(optparse)#parse input 
+library(optparse)#parse input
 library(tibble)#rownmaes_to_columns
 library(tidyr)#gather
 library(dplyr)#left join
@@ -29,15 +29,15 @@ option_list = list(
   make_option(
     c("-s", "--start"),
     type = "numeric",
-    default = "0.1",
-    help = "value of rho to start scanning [default= %default]",
+    default = "0",
+    help = "value of cor to start scanning [default= %default]",
     metavar = "character"
   ),
   make_option(
     c("-e", "--end"),
     type = "numeric",
     default = "0.4",
-    help = "value of rho to finish scanning [default= %default]",
+    help = "value of cor to finish scanning [default= %default]",
     metavar = "character"
   ),
   make_option(
@@ -69,7 +69,6 @@ option_list = list(
     metavar = "character"
   )
 )
-
 opt_parser = OptionParser(option_list=option_list)
 opt = parse_args(opt_parser)
 ##############################################
@@ -85,26 +84,26 @@ print(opt$bin)
 opt_parser = OptionParser(option_list=option_list)
 opt = parse_args(opt_parser)
 ##############################################
-t_Zvals<-read.table(opt$file)
+t_Zvals <- read.table(opt$file)
 sampleData <- as.matrix(t_Zvals)
-sampleClass<-read.delim(opt$order, sep="\t", header = T)
+sampleClass <- read.delim(opt$order, sep = "\t", header = T)
 print(head(sampleClass))
 print(colnames(sampleClass))
 print(head(sampleClass$color))
-name<-opt$name
-start<-opt$start
-end<-opt$end
-interval<-opt$interval
-ncores <-opt$cores
-fdr<-0.01
-scripts<-opt$bin
+name <- opt$name
+start <- opt$start
+end <- opt$end
+interval <- opt$interval
+ncores <- opt$cores
+fdr <- 0.01
+scripts <- opt$bin
 sc3 <- paste(scripts, "functions_centrality_MC_cor.R", sep = "/")
 #esta funcion se carga de sc3
 source(sc3)
 DGList <- getCentralityByCOR(sampleData, start, end, interval, fdr)
 #########################################################
 print("Finish computation. Lets plot")
-FileName<-paste(name, start, end, sep="-")
+FileName <- paste(name, start, end, sep = "-")
 DGdf <- DGList[[1]]
 DGdf[is.na(DGdf)] <- 0
 degreeFile <- paste(FileName, "degree.tab", sep = "_")
