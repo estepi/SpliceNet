@@ -136,6 +136,8 @@ For each dataset (event type, ES, IR, A5, A3) we computed Network FDR and  Pears
 - ../SpliceNet/singlecor.R -m 0 -f IR_all_sscaled.tab  -p 1 -n IR -b ../SpliceNet
 
 ### 
+Table with expected edges: expected_edges_2022.txt
+
 network values:
 
 ES based network:
