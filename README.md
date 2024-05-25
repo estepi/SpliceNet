@@ -3,6 +3,7 @@
 To  systematically  explore  the  functions  of  core  splicing  factors  and regulators  in  alternative  splicing,  RNA-seq  analyses  were  carried  out  upon  the knockdown  of  over  304  splicing-related  factors.  
 
 # Clone this repository on your computer
+
 ## using CL:
 
 * git clone https://github.com/estepi/SpliceNet
@@ -22,24 +23,52 @@ To  systematically  explore  the  functions  of  core  splicing  factors  and re
 Scripts associated to transcriptome-wide analysis of the effects of systematic knock down of splicing factors and regulators using siRNAs in HeLa cells.
 
 * All scripts were written in R version >4.0
+ 
+* PSI calculation was performed using VAST-TOOLS version
 
-* To see how to run on ISIS, you can check this **example.sh**
+# Workflow
+
+##   Clean raw-data/ Replace NAs: Analyze NAs in VAST-TOOLS INCLUSION final Table: 
+
+* We count how many NAs contain a quality score for every PSI value computed. If they have more than 3, we replace this PSI value with NAnew3
+
+* Input is the default vast-tools table (INCLUSION-...)
+* Output: desired output, script 1: only replacing NAnew3
+
+* If INCLUSION table was produced using last version of vast-tools, we can replace Intron Retention PSI value with NAI  if the adjusted pvalue for the "read umbalance" is below 0.05. 
+
+* Input is the default vast-tools table (INCLUSION-...)
+* Output: desired output, script 1: replacing NAnew3+NAI
+
+## How to run:
+- 1.- Download scripts in your desired folder.
+- 2.- Load libraries:
+
+library(data.table)
+library(stringr)
+
+- 3.- Source the function you want to use:
+
+- source("replaceNA.R") # only NewNAs
+- source("replaceNAI.R") # NewNAs + NAIs
+
+* Define the input / output files:
+
+- INCFile<-"test.tab"
+- OUTFile<-"test_NA_NewN3.tab"
+- OUTFile2<-"test_NA_NewN3_NAIs.tab"
+
+- replaceNA(INCFile, OUTFile)
+- replaceNAI(INCFile, OUTFile2)
 
 
-## Prepare table: prepareEVENTTable.R
+
+## Prepare tables for specific events: prepareEVENTTable.R
 * requiered library: MatrixGenerics
 
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-BiocManager::install("MatrixGenerics")
-
-
 * Input file: **dPSI_full_No_Nas.txt** and **class_colors2020.txt**:
-*
-*  See files.md for more details
 
-* PSI calculation was performed using VAST-TOOLS (jjjj9) version
+*  See files.md for more details
 
 * Outputs: 
 *   dPSI values,
@@ -109,7 +138,7 @@ Compute single correlation for a given dPSI table
 
 * R CMD Rscript  ../SpliceNet/singlecor.R -m 0 -f all_sscaled.tab  -p  1 -n all -b ../SpliceNet
 
-# Extract centrality
+## Extract centrality
 -  Net-centrality_CL_cor.R (for command line)
 -  Net-centrality_interactive_cor.R (to run interactively)
 
@@ -117,39 +146,6 @@ Compute single correlation for a given dPSI table
 
 For a given input matrix, it extracts degree (and normalized degree) poe each KD in a given interval of correlations
 It can help to identify high/low stable factors.
-
-#  Replace NAs: Analyze NAs in VAST-TOOLS INCLUSION final Table: 
-
-* We count how many NAs contain a quality score for every PSI value computed. If they have more than 3, we replace this PSI value with NAnew3. 
-* Requiered libraries: 
-* Input is the default vast-tools table (INCLUSION-...)
-* Output: desired output, script 1: only replacing NAnew3
-
-* If INCLUSION table was produced using last version of vast-tools, we can replace Intron Retention PSI value with NAI  if the adjusted pvalue for the "read umbalance" is below 0.05. 
-
-* Input is the default vast-tools table (INCLUSION-...)
-* Output: desired output, script 1: replacing NAnew3+NAI
-
-## How to run:
-- 1.- Download scripts in your desired folder.
-- 2.- Load libraries:
-
-library(data.table)
-library(stringr)
-
-- 3.- Source the function you want to use:
-
-- source("replaceNA.R") # only NewNAs
-- source("replaceNAI.R") # NewNAs + NAIs
-
-* Define the input / output files:
-
-- INCFile<-"test.tab"
-- OUTFile<-"test_NA_NewN3.tab"
-- OUTFile2<-"test_NA_NewN3_NAIs.tab"
-
-- replaceNA(INCFile, OUTFile)
-- replaceNAI(INCFile, OUTFile2)
 
 
 # generate_subset_from_GC_distribution.R
