@@ -28,4 +28,3 @@ length(bg1)#500
 bg0 = dPSI_full_exons[abs(dPSI_full_exons$AC008073.5) < 5
                       &   dPSI_full_exons$AVcontrols < 5 |
                         dPSI_full_exons$AVcontrols > 95,  "EVENT"]
-length(bg0)#139

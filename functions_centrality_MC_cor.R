@@ -41,7 +41,6 @@ getCorM <- function(M, min, fdr)
 }
 #OK,extract netwotks from the different MATRIXS
 ######################################################################
-#agregar from to como parametros
 
 getCentralityByCOR <- function(M, start, end, interval, fdr)
 {

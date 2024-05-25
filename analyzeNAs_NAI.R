@@ -6,10 +6,10 @@ library(data.table)
 library(stringr)
 #########################################
 #replace new NAs and NAIs at once
-INCFile<-""
-OUTFile1<-""
-OUTFile2<-""
-source("replaceNAI.R")
+INCFile<-"/Users/estepi/Documents/CRG/convertVT-SUPPA/INCLUSION_LEVELS_FULL-Hs2331.tab"
+OUTFile1<-"test1.tab"
+OUTFile2<-"test2.tab"
+source("//Users/estepi/Documents/CRG/SpliceNet/replaceNAI.R")
 replaceNAI(INCFile, OUTFile1,OUTFile2)
 #########################################
 # Only replace new NAs

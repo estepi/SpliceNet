@@ -11,7 +11,7 @@ library(ggplot2)#for plot
 library(pheatmap)#for plot
 #
 
-t_Zvals<-read.table("/home/estepi/Documents/SpliceNetData/input/ES_subset3500_sscaled.tab")
+t_Zvals<-read.table("sscaled.tab")
 sampleData <- as.matrix(t_Zvals)
 sampleClass<-read.csv("~/Documents/summaryLinks/class_colors.tab", sep="\t", header = T)
 name<-"ES"
@@ -20,7 +20,7 @@ end<- 0.6
 interval<-0.02
 ncores <- 1
 fdr<-0.01
-scripts<-"/home/estepi/Documents/SpliceNet"
+scripts<-"../SpliceNet"
 sc3 <- paste(scripts, "functions_centrality_MC_cor.R", sep = "/")
 #esta funcion se carga de sc3
 source(sc3)

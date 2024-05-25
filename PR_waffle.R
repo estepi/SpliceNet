@@ -5,7 +5,7 @@ library(pheatmap)
 library(plyr)
 library(reshape) 
 ##################################################################
-setwd("SpliceNetRes/GC/networks/")
+setwd("SpliceNetRes")
 rankings <-
   read.table(
     "centrality.txt",
