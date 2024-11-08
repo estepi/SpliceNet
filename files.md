@@ -134,18 +134,18 @@ For each dataset (event type, ES, IR, A5, A3) we computed Network FDR and  Pears
 
 - ES based network:
 
-| ----------- | ----------- |
+| --------------|-----------|
 | F-Score	| 0,2863744 |
 | PREC>50%	| 0,2582914 |
-| FDR<0,05	| 0,18 |
-| Chosen:	| 0,286 |
-| Edges		| 1009 |
-| novel edges	| 344 | 
-| nodes		| 117 |
-| clusters	| 16 |
+| FDR<0,05	| 0,18      |
+| Chosen:	| 0,286     |
+| Edges		| 1009      |
+| novel edges	| 344       | 
+| nodes		| 117       |
+| clusters	| 16        |
 | edge_density	| 0,1486885 |
-| mean_distance	| 2,26 |
-| ----------- | ----------- |
+| mean_distance	| 2,26      |
+|---------------|-----------|
 
 - IR based network:
 
