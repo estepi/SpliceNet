@@ -83,6 +83,11 @@ Gene count tables were prepared using STAR option --quantMode GeneCounts. It inc
 	*  **S**: 10917 
  - **IR**:  15380
 
+| Syntax      | Description |
+| ----------- | ----------- |
+| Header      | Title       |
+| Paragraph   | Text        |
+
 
 ### Prepare dPSI, sscaled and dscaled files for main types of EVENTS
 
