@@ -6,7 +6,7 @@ To  systematically  explore  the  functions  of  core  splicing  factors  and re
 
 ## using CL:
 
-* git clone https://github.com/estepi/SpliceNet
+ ``` git clone https://github.com/estepi/SpliceNet```  
 
 ![alt text](https://github.com/estepi/SpliceNet/blob/main/gitclone.png?raw=true)
 
@@ -34,9 +34,7 @@ Scripts associated to transcriptome-wide analysis of the effects of systematic k
 
 * Input is the default vast-tools table (INCLUSION-...)
 * Output: desired output, script 1: only replacing NAnew3
-
 * If INCLUSION table was produced using last version of vast-tools, we can replace Intron Retention PSI value with NAI  if the adjusted pvalue for the "read umbalance" is below 0.05. 
-
 * Input is the default vast-tools table (INCLUSION-...)
 * Output: desired output, script 1: replacing NAnew3+NAI
 
@@ -44,33 +42,33 @@ Scripts associated to transcriptome-wide analysis of the effects of systematic k
 - 1.- Download scripts in your desired folder.
 - 2.- Load libraries:
 
+``` 
 library(data.table)
 library(stringr)
+```
 
 - 3.- Source the function you want to use:
-
-- source("replaceNA.R") # only NewNAs
-- source("replaceNAI.R") # NewNAs + NAIs
+ 
+``` 
+source("replaceNA.R") # only NewNAs
+source("replaceNAI.R") # NewNAs + NAIs
+ ``` 
 
 * Define the input / output files:
-
-- INCFile<-"test.tab"
-- OUTFile<-"test_NA_NewN3.tab"
-- OUTFile2<-"test_NA_NewN3_NAIs.tab"
-
-- replaceNA(INCFile, OUTFile)
-- replaceNAI(INCFile, OUTFile2)
-
-
+``` 
+INCFile<-"test.tab"
+OUTFile<-"test_NA_NewN3.tab"
+OUTFile2<-"test_NA_NewN3_NAIs.tab"
+replaceNA(INCFile, OUTFile)
+replaceNAI(INCFile, OUTFile2)
+``` 
 
 ## Prepare tables for specific events
-* script: 'prepareEVENTTable.R' 
-* Requiered library: MatrixGenerics
+* script: `prepareEVENTTable.R` 
+* Requiered library: `MatrixGenerics`
 * Input files  (_See files.md for more details_)
-  
-  * **dPSI_full_No_Nas.txt**
-  * **class_colors2020.txt**:
-
+  * `PSI_full_No_Nas.txt`
+  * `class_colors2020.txt`
 * Outputs: 
   *   dPSI values,
   *   single (by columns, KDs) and double (by row and column) scaled deltapsi values
@@ -82,8 +80,8 @@ library(stringr)
 - Expected values are higher FDR at lower correlation values
 - Matrix randomization is prepared randomizing rows, so correlation between columns are disrupted. As noiser is the data, more random links will be find, higher FDR
 
-* script: 'Net_fdr_CL_cor.R' (use by CL or interactively)
-* Requiered libraries: optparse, parallel, Hmisc, tibble, tidyr, utils, dplyr
+* script: `Net_fdr_CL_cor.R` (use by CL or interactively)
+* Requiered libraries: `optparse`, `parallel`, `Hmisc`, `tibble`, `tidyr`, `utils`, `dplyr`
 * Parameters:
 - -s 0.1 (start: from which correlation value the function scan the data. Correlation values are between 0 and 1)
 - -e 0.4  (end: till which correlation value the funcion scan the data. Correlation values are between 0 and 1)
@@ -95,9 +93,9 @@ library(stringr)
 - -n A3short (name: prefix to use for output files, ej: A3short)
 
 * Usage using CL: 
-/code
+```
 $R CMD Rscript ../SpliceNet/Net-fdr_CL_cor.R -f all_sscaled.tab -s 0.1 -e 0.2 -i 0.05 -r 5 -n short -b ../SpliceNet
-/code 
+``` 
 
 * Output:
 The function returns a table and their corresponding plots for the number of links for real and random data in the interval of correlations
@@ -105,17 +103,19 @@ FDR is computed as Number of Links RANDOM data / Number of links in REAL data * 
 
 For our files (see 'files.md'):
 
-* ../SpliceNet/Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b ../SpliceNet/ -c 12 -f  A3_all_sscaled.tab -n A3long
-* ../SpliceNet/Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b ../SpliceNet/ -c 12  -f A5_all_sscaled.tab -n A5long
-* ../SpliceNet/Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b ../SpliceNet/ -c 12  -f ES_all_sscaled.tab -n ESlong
-* ../SpliceNet/Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b ../SpliceNet/ -c 12  -f IR_all_sscaled.tab -n IRlong
-
+```
+ ../SpliceNet/Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b ../SpliceNet/ -c 12 -f  A3_all_sscaled.tab -n A3long
+ ../SpliceNet/Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b ../SpliceNet/ -c 12  -f A5_all_sscaled.tab -n A5long
+ ../SpliceNet/Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b ../SpliceNet/ -c 12  -f ES_all_sscaled.tab -n ESlong
+ ../SpliceNet/Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b ../SpliceNet/ -c 12  -f IR_all_sscaled.tab -n IRlong
+```
 
 ## Single Cor
+
 Compute single correlation for a given dPSI table
 
-* Script: 'singlecor.R' (use by CL or interactively)
-* Requiered libraries: 'optparse', 'utils', 'igraph', 'scales', 'Hmisc', 'tibble', 'tidyr', 'utils', 'dplyr'
+* Script: `singlecor.R`(use by CL or interactively)
+* Requiered libraries: `optparse`, `utils`, `igraph`, `scales`, `Hmisc`, `tibble`, `tidy`, `utils`, `dplyr`
   
 * Input: Numeric matrix (only dPSI values, scaled or not), mininum correlation value, scripts folder, sample name
 
@@ -128,33 +128,19 @@ Compute single correlation for a given dPSI table
 -   link's name
 
 * For our files:
-
-* R CMD Rscript  ../SpliceNet/singlecor.R -m 0 -f all_sscaled.tab  -p  1 -n all -b ../SpliceNet
+```
+ R CMD Rscript  ../SpliceNet/singlecor.R -m 0 -f all_sscaled.tab  -p  1 -n all -b ../SpliceNet
+```
 
 ## Extract centrality
--  Net-centrality_CL_cor.R (for command line)
--  Net-centrality_interactive_cor.R (to run interactively)
-
-* Requiered libraries: 
 
 For a given input matrix, it extracts degree (and normalized degree) poe each KD in a given interval of correlations
 It can help to identify high/low stable factors.
 
+-  `Net-centrality_CL_cor.R` (for command line)
+-  `Net-centrality_interactive_cor.R` (to run interactively)
 
-# generate_subset_from_GC_distribution.R
-* Requiered libraries: ggplot2, ggpubr
-
-## Files needed:
-* **subsetFromGCDistribution.R**
-* Define: workingDir and  outputPath
-* **dPSI_EXONS.tab** (prepared with **prepareExonsTble.R**)
-* **exons_features_hs2.tab**
-
-* Prepare some variables and then run the function:
-subsetFromGCDistribution(dPSIFile = table,   all = exons_gc,  name, outputPath)
-
-## Output
-It will subset Q1 and Q3 Events according GC content, some distribution plots and a table with exon's GC content by gene
+`generate_subset_from_GC_distribution.R`
 
 
 
