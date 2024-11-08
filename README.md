@@ -40,7 +40,7 @@ Scripts associated to transcriptome-wide analysis of the effects of systematic k
 * Input is the default vast-tools table (INCLUSION-...)
 * Output: desired output, script 1: replacing NAnew3+NAI
 
-## How to run:
+### How to run:
 - 1.- Download scripts in your desired folder.
 - 2.- Load libraries:
 
@@ -63,35 +63,28 @@ library(stringr)
 
 
 
-## Prepare tables for specific events: prepareEVENTTable.R
-* requiered library: MatrixGenerics
-
-* Input file: **dPSI_full_No_Nas.txt** and **class_colors2020.txt**:
-
-*  See files.md for more details
+## Prepare tables for specific events
+* script: 'prepareEVENTTable.R' 
+* Requiered library: MatrixGenerics
+* Input files  (_See files.md for more details_)
+  
+  * **dPSI_full_No_Nas.txt**
+  * **class_colors2020.txt**:
 
 * Outputs: 
-*   dPSI values,
-*   single (by columns, KDs) and double (by row and column) scaled deltapsi values
+  *   dPSI values,
+  *   single (by columns, KDs) and double (by row and column) scaled deltapsi values
 
 ## Network FDR computation
+- This script computes Network FDR represented as the ratio betwenn TRUE links and RANDOM links. Input file is a matrix with EVENTS in rows and KDs (samples) in the column
+- dPSI values can be none, single or double scaled (should be prepared in advance, see *Prepare table section*)
+- The function retunrs the total number of links which are below a given correlation value and are significant (corrected pvalue <0.1).
+- Expected values are higher FDR at lower correlation values
+- Matrix randomization is prepared randomizing rows, so correlation between columns are disrupted. As noiser is the data, more random links will be find, higher FDR
 
-Requiered libraries: optparse, parallel, Hmisc, tibble, tidyr, utils, dplyr
-
-* **Net_fdr_CL_cor.R** (use by CL or interactively)
-
-This script computes Network FDR represented as the ratio betwenn TRUE links and RANDOM links. Input file is a matrix with EVENTS in rows and KDs (samples) in the column
-
-dPSI values can be none, single or double scaled (should be prepared in advance, see *Prepare table section*)
-
-The function retunrs the total number of links which are below a given correlation value and are significant (corrected pvalue <0.1).
-Expected values are higher FDR at lower correlation values
-
-Matrix randomization is prepared randomizing rows, so correlation between columns are disrupted
-As noiser is the data, more random links will be find, higher FDR
-
+* script: 'Net_fdr_CL_cor.R' (use by CL or interactively)
+* Requiered libraries: optparse, parallel, Hmisc, tibble, tidyr, utils, dplyr
 * Parameters:
-
 - -s 0.1 (start: from which correlation value the function scan the data. Correlation values are between 0 and 1)
 - -e 0.4  (end: till which correlation value the funcion scan the data. Correlation values are between 0 and 1)
 - -i 0.02 (interval: size of the interval to compute the correlation.  For example, 0.02 means you will scan 0, 0.02, 0.04, 0.06, etc)
@@ -101,16 +94,16 @@ As noiser is the data, more random links will be find, higher FDR
 - -f sscaled.tab (file: input file, should be prepared in advance. It contains only dPSI values, scaled or not  ex: sscaled.tab) 
 - -n A3short (name: prefix to use for output files, ej: A3short)
 
-Usage using CL: 
+* Usage using CL: 
+/code
 $R CMD Rscript ../SpliceNet/Net-fdr_CL_cor.R -f all_sscaled.tab -s 0.1 -e 0.2 -i 0.05 -r 5 -n short -b ../SpliceNet
-
+/code 
 
 * Output:
 The function returns a table and their corresponding plots for the number of links for real and random data in the interval of correlations
 FDR is computed as Number of Links RANDOM data / Number of links in REAL data * 100
 
-
-For our files (see **files.md**):
+For our files (see 'files.md'):
 
 * ../SpliceNet/Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b ../SpliceNet/ -c 12 -f  A3_all_sscaled.tab -n A3long
 * ../SpliceNet/Net-fdr_CL_cor.R -s 0.1 -e 0.8 -i 0.01 -r 1000 -b ../SpliceNet/ -c 12  -f A5_all_sscaled.tab -n A5long
@@ -119,11 +112,11 @@ For our files (see **files.md**):
 
 
 ## Single Cor
-* requiered libraries: optparse, utils, igraph, scales, Hmisc, tibble, tidyr, utils, dplyr
-
-* singlecor.R (use by CL or interactively)
-
 Compute single correlation for a given dPSI table
+
+* Script: 'singlecor.R' (use by CL or interactively)
+* Requiered libraries: 'optparse', 'utils', 'igraph', 'scales', 'Hmisc', 'tibble', 'tidyr', 'utils', 'dplyr'
+  
 * Input: Numeric matrix (only dPSI values, scaled or not), mininum correlation value, scripts folder, sample name
 
 - Usage:
