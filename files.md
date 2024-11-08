@@ -83,11 +83,6 @@ Gene count tables were prepared using STAR option --quantMode GeneCounts. It inc
 	*  **S**: 10917 
  - **IR**:  15380
 
-| Syntax      | Description |
-| ----------- | ----------- |
-| Header      | Title       |
-| Paragraph   | Text        |
-
 
 ### Prepare dPSI, sscaled and dscaled files for main types of EVENTS
 
@@ -136,25 +131,28 @@ For each dataset (event type, ES, IR, A5, A3) we computed Network FDR and  Pears
 * Table with expected edges:   `expected_edges_2022.txt`
 
 - Network values:
-- |   |   |   |
-|---|---|---|
-|   |   |   |
-|   |   |   |
-|   |   |   |
-|   |   |   |
+
+- ES based network:
+
+| Syntax      | Description |
+| ----------- | ----------- |
+| Header      | Title       |
+| Paragraph   | Text        |
 
 
-ES based network:
-F-Score		0,2863744
-PREC>50%	0,2582914
-FDR<0,05	0,18
-Chosen:		0,286
-Edges		1009
-novel edges	344
-nodes		117
-clusters	16
-edge_density	0,1486885
-mean_distance	2,26 
+| 	 |		 |
+| ----------- | ----------- |
+| F-Score	| 0,2863744 |
+| PREC>50%	| 0,2582914 |
+| FDR<0,05	| 0,18 |
+| Chosen:	| 0,286 |
+| Edges		| 1009 |
+| novel edges	| 344 | 
+| nodes		| 117 |
+| clusters	| 16 |
+| edge_density	| 0,1486885 |
+| mean_distance	| 2,26 |
+| ----------- | ----------- |
 
 - IR based network:
 
