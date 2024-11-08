@@ -134,13 +134,6 @@ For each dataset (event type, ES, IR, A5, A3) we computed Network FDR and  Pears
 
 - ES based network:
 
-| Syntax      | Description |
-| ----------- | ----------- |
-| Header      | Title       |
-| Paragraph   | Text        |
-
-
-| 	 |		 |
 | ----------- | ----------- |
 | F-Score	| 0,2863744 |
 | PREC>50%	| 0,2582914 |
@@ -156,54 +149,63 @@ For each dataset (event type, ES, IR, A5, A3) we computed Network FDR and  Pears
 
 - IR based network:
 
-F-Score		0,307028
-PREC>50%	0,3142243
-FDR<0,05	0,2
-Chosen:		0,315
-Edges		1032
-novel edges	506
-nodes		123
-clusters	4
-edge_density	0,137545
-mean_distance	2,35
+| ----------- | ----------- |
+| F-Score | 0,307028 |
+| PREC>50% |	0,3142243 |
+| FDR<0,05 |	0,2 |
+| Chosen |		0,315 |
+| Edges	|	1032 |
+| novel edges	| 506 |
+| nodes	 |123 |
+| clusters | 4 |
+| edge_density |	0,137545 |
+| mean_distance	| 2,35 |
+| ----------- | ----------- |
 
 - A5 based network:
 
-F-Score	0,2859566
-PREC>50%	0,2776502
-FDR<0,05	0,24
-Chosen:		0,286
-Edges		749
-novel edges	309
-nodes		162
-clusters	9
-edge_density	0,05743425
-mean_distance	3,66 
+| ----------- | ----------- |
+| F-Score |	0,2859566 |
+| PREC>50% |	0,2776502 |
+| FDR<0,05 |	0,24 | 
+| Chosen |		0,286 |
+| Edges	|	749 |
+| novel edges	| 309 |
+| nodes		| 162 |
+| clusters	| 9 |
+| edge_density	| 0,05743425 |
+| mean_distance	| 3,66 |
+| ----------- | ----------- |
 
 - A3 based network:
 
-F-Score	0,2324013
-PREC>50%	0,3728652
-FDR<0,05	0,26
-Chosen:		0,37
-Edges		196
-novel edges	102
-nodes		82
-clusters	7
-edge_density	0,05901837
-mean_distance	3,35 
+| ----------- | ----------- |
+| F-Score |	0,2324013 |
+| PREC>50% |	0,3728652 |
+| FDR<0,05 |	0,26 |
+| Chosen |		0,37 |
+| Edges |	196 |
+| novel edges |	102 |
+| nodes | 82 |
+| clusters | 7 |
+| edge_density | 0,05901837 |
+| mean_distance	| 3,35  |
+| ----------- | ----------- |
 
 - All event type based network:
 
-F-Score		0,2846873
-PREC>50%	0,2747137
-FDR<0,05	0,18
-Chosen:		0,285
-Edges		1323
-novel edges	569
-nodes		135
-clusters	5
-edge_density	0,1462687
+| ----------- | ----------- |
+| F-Score | 		0,2846873 |
+| PREC>50% |	0,2747137 |
+| FDR<0,05 |	0,18 |
+| Chosen |		0,285 |
+| Edges |	1323 |
+| novel edges |	569 |
+| nodes	| 135 |
+| clusters | 5 |
+| edge_density | 0,1462687 |
+| ----------- | ----------- |
+
 
 
 
