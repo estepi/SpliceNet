@@ -164,47 +164,49 @@ For each dataset (event type, ES, IR, A5, A3) we computed Network FDR and  Pears
 
 - A5 based network:
 
-| ----------- | ----------- |
-| F-Score |	0,2859566 |
-| PREC>50% |	0,2776502 |
-| FDR<0,05 |	0,24 | 
-| Chosen |		0,286 |
-| Edges	|	749 |
-| novel edges	| 309 |
-| nodes		| 162 |
-| clusters	| 9 |
-| edge_density	| 0,05743425 |
-| mean_distance	| 3,66 |
-| ----------- | ----------- |
+| Metric         | Value      |
+|----------------|------------|
+| F-Score        | 0.2859566  |
+| PREC>50%       | 0.2776502  |
+| FDR<0.05       | 0.24       | 
+| Chosen         | 0.286      |
+| Edges          | 749        |
+| Novel Edges    | 309        |
+| Nodes          | 162        |
+| Clusters       | 9          |
+| Edge Density   | 0.05743425 |
+| Mean Distance  | 3.66       |
+
 
 - A3 based network:
 
-| ----------- | ----------- |
-| F-Score |	0,2324013 |
-| PREC>50% |	0,3728652 |
-| FDR<0,05 |	0,26 |
-| Chosen |		0,37 |
-| Edges |	196 |
-| novel edges |	102 |
-| nodes | 82 |
-| clusters | 7 |
-| edge_density | 0,05901837 |
-| mean_distance	| 3,35  |
-| ----------- | ----------- |
+| Metric         | Value      |
+|----------------|------------|
+| F-Score        | 0.2324013  |
+| PREC>50%       | 0.3728652  |
+| FDR<0.05       | 0.26       |
+| Chosen         | 0.37       |
+| Edges          | 196        |
+| Novel Edges    | 102        |
+| Nodes          | 82         |
+| Clusters       | 7          |
+| Edge Density   | 0.05901837 |
+| Mean Distance  | 3.35       |
 
 - All event type based network:
 
-| ----------- | ----------- |
-| F-Score | 		0,2846873 |
-| PREC>50% |	0,2747137 |
-| FDR<0,05 |	0,18 |
-| Chosen |		0,285 |
-| Edges |	1323 |
-| novel edges |	569 |
-| nodes	| 135 |
-| clusters | 5 |
-| edge_density | 0,1462687 |
-| ----------- | ----------- |
+| Metric         | Value      |
+|----------------|------------|
+| F-Score        | 0.2846873  |
+| PREC>50%       | 0.2747137  |
+| FDR<0.05       | 0.18       |
+| Chosen         | 0.285      |
+| Edges          | 1323       |
+| Novel Edges    | 569        |
+| Nodes          | 135        |
+| Clusters       | 5          |
+| Edge Density   | 0.1462687  |
+
 
 
 
