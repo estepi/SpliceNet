@@ -134,7 +134,7 @@ For each dataset (event type, ES, IR, A5, A3) we computed Network FDR and  Pears
 
 - ES based network:
 
-- | Metric         | Value     |
+| Metric         | Value     |
 |----------------|-----------|
 | F-Score        | 0.2863744 |
 | PREC>50%       | 0.2582914 |
