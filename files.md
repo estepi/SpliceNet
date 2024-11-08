@@ -1,5 +1,7 @@
 # Transcriptome-wide analysis of the effects of systematic knock down of splicing factors and regulators using siRNAs in HeLa cells
 
+Article: https://www.science.org/doi/10.1126/science.adn8105
+
 ## Description
 RNA-seq upon knockdown of 304 splicing-related factors and regulators using siRNAs in HeLa cells
 
@@ -21,15 +23,17 @@ Ultra low input library preparation. Full-length RNA-seq from single cells using
 ### Nucleic Acid Sequencing protocol
 Illumina HiSeq 2000 / Illumina HiSeq 2500 2x125 bp
 
-* Sequencing quality check was done using FASTQC (https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). 
-* Raw Data is available here: https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-11202
+* Sequencing quality check was done using [FASTQC] (https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). 
+* Raw Data is available [here] (https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-11202)
 
 ### HTS Alignment protocol
 
 Read alignment and gene count were performed using STAR version 2.5.3a gainst Homo sapiens genome assembly v38 (ENSEMBL) 
 Gene count tables were prepared using STAR option --quantMode GeneCounts. It includes only uniquely mapped reads in the quantification.
 * Pipelines automatization: NEXTFLOW  ~  version 0.27.1
-* Read alignmenNot default parameters:
+* Read alignment not default parameters:
+
+```
                 --outSJfilterReads Unique 
                 --outFilterType BySJout 
                 --outFilterMultimapNmax 10 
@@ -37,79 +41,67 @@ Gene count tables were prepared using STAR option --quantMode GeneCounts. It inc
                 --alignSJDBoverhangMin 3 
                 --outFilterMismatchNoverLmax 0.1 
                 --alignIntronMin 20 
-        	      --alignIntronMax 500 
-	              --outSAMstrandField intronMotif 
+ 	         --alignIntronMax 500
+		--outSAMstrandField intronMotif 
                 --outFilterIntronMotifs RemoveNoncanonicalUnannotated 
                 --seedSearchStartLmax 50 
+```
 
 * Alignments were quality checked with QUALIMAP. 
 
-### CLASS COLORS class_colors_2020.txt
-* Factors were classified into  Family Class according XX
-* (Assembbly) Order was defined according
+### CLASS COLORS
+* File: `class_colors_2020.txt`
+  
+* Factors were classified into  Family Class according bibliography
 
+### GE profiles: 
 
-### GE profiles: Gene_logFC_GW*.tab
+* File: `Gene_logFC_GW*.tab`
 
-* Differential gene expression analysis was performed using egdeR R/Bioconductor package (http://bioconductor.org/packages/release/bioc/html/edgeR.html).
+* Differential gene expression analysis was performed using [egdeR R/Bioconductor package] (http://bioconductor.org/packages/release/bioc/html/edgeR.html).
 
 * Low expressed genes were filtered: at least 70% of the samples should have more than 1 cpm. We include knock down’s gene, even if its expression is lower than 1 cpm. Total genes analyzed: **11876**
 
 ### AS profiles
 
-* Alternative splicing genome wide quantification was performed using vast-tools (https://github.com/vastgroup/vast-tools) against Homo sapiens version 38 (ensembl) (HS2).**CHECK VERSION**
+* Alternative splicing genome wide quantification was performed using [vast-tools] (https://github.com/vastgroup/vast-tools) , using `Homo sapiens version 38 (ensembl)` (HS2).
+  
+* Quality checked was performed and those  samples/genes/ wit more tna 30% Nas were discarded. We add an extra layer of filtering discarding those IR events with *unbalanced* coverage (pval <0.1)
 
-* Quality checked was performed and those  samples/genes/ with… Nas were discarded **(Check with GOSIA)**
-We add an extra layer of filtering discarding thos IR events with *unbalanced* coverage (pval <0.1)
-
-* Alterantive Splicing event type which are analyzed are: ES, IR, A5, A3
-
-* We consider an event differentially spliced if:
-- there were not Nas in the row (?)
-- standard deviation of controls was lower than 5 (?)
-- delta PSI was greater than 25 (?)
-
-### Total initial input (dPSI_full_No_Nas.txt): 
+* Total initial input (dPSI_full_No_Nas.txt): 
 * 82795 events well mapped
 * Filter by RANGE > 5, total: 41870
 
  - **Alt3**: 6093
-
 - **Alt5**: 3676
-
 - **Exons**: 16721
-
 	*  **ANN**: 1088
 	*  **C1**: 1513
 	*  **C2**: 1359
 	*  **C3**: 1772
 	*  **MIC**: 72
 	*  **S**: 10917 
-	
  - **IR**:  15380
 
 
-## Prepare dPSI, sscaled and dscaled files for main types of EVENTS: all, ES, A5, A3 and IR
+### Prepare dPSI, sscaled and dscaled files for main types of EVENTS
 
-- Scripts are: **prepareEVENTtable.R**
+- Script: `prepareEVENTtable.R`
 
-Using /SpliceNetData//class_colors_2020.txt and XXX under SpliceNetData/ folder, yo can get 3 files from each event type:
+* Using `SpliceNetData/class_colors_2020.txt` and XXX under SpliceNetData/ folder, yo can get 3 files from each event type:
 
-* EVENT_dPSI.tab
-* EVENT_all_sscaled.tab (data scaled by columns)
-* EVENT_all_dscaled.tab (data double scaled)
+* `EVENT_dPSI.tab`
+* `EVENT_all_sscaled.tab` (data scaled by columns)
+* `EVENT_all_dscaled.tab` (data double scaled)
 
 
-
-## AS Cross Regulatory Network: Corss_edges.csv
- From AS profile table, we only consider events which belong to Knock Down genes and  dpSI > 25. **CHECK GOSIA** 
+# AS Cross Regulatory Network
+ - File: `Corss_edges.csv`
  
+ From AS profile table, we only consider events which belong to Knock Down genes and  dpSI > 25
  From this analysis we can estimate the effect of cross regulation between splicing factors via alternative splicing
- 
  In this table you can filter by Source, Target and dPSI
- 
- Total edges: **9966 **
- 
+  
  ### Total input:
 
 
@@ -120,25 +112,32 @@ For each dataset (event type, ES, IR, A5, A3) we computed Network FDR and  Pears
 
  * Total expected links: 46360 (*(305*305)-305*))
 
-* Input:
+* Inputs:
 
-     - A3_all_sscaled.tab: 6094 events
-     - A5_all_sscaled.tab: : 3677 events
-     - ES_all_sscaled.tab: 16722 events
-     - IR_all_sscaled.tab: 15381 events 
+     - `A3_all_sscaled.tab`: 6094 events
+     - `A5_all_sscaled.tab`: : 3677 events
+     - `ES_all_sscaled.tab`: 16722 events
+     - `IR_all_sscaled.tab`: 15381 events 
      
 * Script parameter	
-(supose your wd is SpliceNetData)
 
+```
 - ../SpliceNet/singlecor.R -m 0 -f A3_all_sscaled.tab  -p  1 -n A3 -b ../SpliceNet
 - ../SpliceNet/singlecor.R -m 0 -f A5_all_sscaled.tab  -p 1 -n A5 -b ../SpliceNet
 - ../SpliceNet/singlecor.R -m 0 -f ES_all_sscaled.tab  -p 1 -n ES -b ../SpliceNet
 - ../SpliceNet/singlecor.R -m 0 -f IR_all_sscaled.tab  -p 1 -n IR -b ../SpliceNet
+```
 
-### 
-Table with expected edges: expected_edges_2022.txt
+* Table with expected edges:   `expected_edges_2022.txt`
 
-network values:
+- Network values:
+- |   |   |   |
+|---|---|---|
+|   |   |   |
+|   |   |   |
+|   |   |   |
+|   |   |   |
+
 
 ES based network:
 F-Score		0,2863744
@@ -152,7 +151,8 @@ clusters	16
 edge_density	0,1486885
 mean_distance	2,26 
 
-IR based network:
+- IR based network:
+
 F-Score		0,307028
 PREC>50%	0,3142243
 FDR<0,05	0,2
@@ -164,7 +164,8 @@ clusters	4
 edge_density	0,137545
 mean_distance	2,35
 
-A5 based network:
+- A5 based network:
+
 F-Score	0,2859566
 PREC>50%	0,2776502
 FDR<0,05	0,24
@@ -176,7 +177,8 @@ clusters	9
 edge_density	0,05743425
 mean_distance	3,66 
 
-A3 based network:
+- A3 based network:
+
 F-Score	0,2324013
 PREC>50%	0,3728652
 FDR<0,05	0,26
@@ -188,7 +190,8 @@ clusters	7
 edge_density	0,05901837
 mean_distance	3,35 
 
-All event type based network:
+- All event type based network:
+
 F-Score		0,2846873
 PREC>50%	0,2747137
 FDR<0,05	0,18
