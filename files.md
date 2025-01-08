@@ -1,7 +1,7 @@
 # Transcriptome-wide analysis of the effects of systematic knock down of splicing factors and regulators using siRNAs in HeLa cells
 
 
-**Tables are available upon request due to size limitation** 
+* Tables are available upon request due to size limitation
 
 Article: https://www.science.org/doi/10.1126/science.adn8105
 >>>>>>> 36b9c6a7462f8287b10dc5154f471c56e5e38404
