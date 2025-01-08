@@ -1,5 +1,6 @@
 library(MatrixGenerics)
 ###########################################
+setwd("/Users/estepi/Documents/CRG/SpliceNet/")
 dPSI_full = read.delim("../SpliceNetData//dPSI_full_No_Nas.txt",
                        dec = ",")
 dim(dPSI_full)
@@ -47,15 +48,15 @@ colnames(dPSI) <- class$gene.name.VT[iis]
 setwd("../SpliceNetData/")
 ##########################################
 #sdPSI
-write.table(round(dPSI, digits = 2), "ES_dPSI.tab",  sep = "\t")
+write.table(round(dPSI, digits = 2), "ES_dPSI_b.tab",  sep = "\t")
 ##########################################
 #single scaled
 deltascaled <- scale(dPSI)# scaled by columns (KDs)
-write.table(deltascaled, "ES_all_sscaled.tab",  sep = "\t")
+write.table(deltascaled, "ES_all_sscaled_b.tab",  sep = "\t")
 ####################################################
 #double scaled
 dsscaled <- t(scale(t(deltascaled)))    #scaled by events
-write.table(dsscaled, "ES_all_dscaled.tab",  sep = "\t")
+write.table(dsscaled, "ES_all_dscaled_b.tab",  sep = "\t")
 ####################################################
 
 
