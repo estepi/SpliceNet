@@ -53,6 +53,7 @@ Gene count tables were prepared using STAR option --quantMode GeneCounts. It inc
 
 * Alignments were quality checked with QUALIMAP. 
 
+
 ### CLASS COLORS
 * File: `class_colors_2020.txt`
   
@@ -60,7 +61,7 @@ Gene count tables were prepared using STAR option --quantMode GeneCounts. It inc
 
 ### GE profiles: 
 
-* File: `Gene_logFC_GW*.tab`
+* File: `LOG2FC_CPMs_table_Hg38_ensembl_GW.tab`
 
 * Differential gene expression analysis was performed using [egdeR R/Bioconductor package] (http://bioconductor.org/packages/release/bioc/html/edgeR.html).
 
