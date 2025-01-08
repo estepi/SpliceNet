@@ -55,7 +55,7 @@ Gene count tables were prepared using STAR option --quantMode GeneCounts. It inc
 
 
 ### CLASS COLORS
-* File: `class_colors_2020.txt`
+* File: `class_colors.txt`
   
 * Factors were classified into  Family Class according bibliography
 
@@ -93,7 +93,7 @@ Gene count tables were prepared using STAR option --quantMode GeneCounts. It inc
 
 - Script: `prepareEVENTtable.R`
 
-* Using `SpliceNetData/class_colors_2020.txt` and XXX under SpliceNetData/ folder, yo can get 3 files from each event type:
+* Using `SpliceNetData/class_colors.txt` and `dPSI_full_No_Nas.txt` under SpliceNetData/ folder, you can get 3 files from each event type:
 
 * `EVENT_dPSI.tab`
 * `EVENT_all_sscaled.tab` (data scaled by columns)
@@ -133,7 +133,7 @@ For each dataset (event type, ES, IR, A5, A3) we computed Network FDR and  Pears
 - ../SpliceNet/singlecor.R -m 0 -f IR_all_sscaled.tab  -p 1 -n IR -b ../SpliceNet
 ```
 
-* Table with expected edges:   `expected_edges_2022.txt`
+* Table with expected edges:   `expected_alphSort.tab`
 
 - Network values:
 
